@@ -1,103 +1,108 @@
-# PRD-Lite (1 trang) - Gold Tracker VN cho CV
+# PRD-Lite v2 (1 trang) - Gold Tracker VN cho CV
 
-## 1) Muc tieu project
-Xay dung mot web app ca nhan bang Next.js de show tren CV:
-- Fullstack voi Next.js (FE + BE cung 1 codebase)
-- Performance tot (Lighthouse/Core Web Vitals)
-- PWA chuan (installable + offline)
+## 1) Muc tieu
+Xay dung mot website dep, muot, hieu suat cao bang **Next.js 16** de show tren CV, dong thoi trinh dien cac tinh nang "kho":
+- Dang nhap Google (Supabase Auth)
+- Push notification theo nguong gia
+- PWA installable + offline mode
 
-Project uu tien don gian, de lam nhanh trong 2-4 ngay.
+Muc tieu la MVP gon, lam duoc trong 5-7 ngay, nhung van "impressive" khi demo.
 
 ---
 
-## 2) Pham vi MVP (don gian)
+## 2) Cong nghe chot
+- **Next.js 16** (App Router, Route Handlers) - fullstack FE + BE trong 1 project.
+- **shadcn/ui + Tailwind CSS** - giao dien hien dai, responsive, mobile-first.
+- **TanStack Query** - polling 3s, cache, retry, stale handling.
+- **Supabase**:
+  - Auth (Google OAuth)
+  - Postgres (alerts + push subscriptions + user settings)
+  - (Tuy chon) Edge Function/Cron de xu ly push theo lich
+- **PWA**: manifest + service worker + cache strategy.
+- Nguon gia: `https://vapi.vnappmob.com/api/v2/gold/*` (goi qua BE route de an API key).
+
+---
+
+## 3) Pham vi MVP
 ### In scope
-1. Dashboard gia vang trong nuoc (SJC, DOJI, PNJ).
-2. Tu dong cap nhat gia moi 3 giay.
-3. UI mobile-first, responsive, dark mode.
-4. PWA:
-   - Co manifest + service worker
-   - Cai duoc len home screen
-   - Offline van mo duoc app va xem gia lan cuoi
-5. Trang/About hoac README co screenshot + diem Lighthouse de show CV.
+1. Dashboard gia vang (SJC/DOJI/PNJ), cap nhat moi 3 giay.
+2. Google Login/Logout bang Supabase Auth.
+3. User tao/sua/xoa alert nguong gia (>= hoac <=).
+4. Push notification khi gia dat nguong (khi user da subscribe).
+5. PWA:
+   - Install len home screen
+   - Mo duoc khi offline
+   - Hien snapshot gia gan nhat + timestamp
+6. UI dep va muot:
+   - Dark/Light mode
+   - Skeleton/loading state
+   - Smooth transition nhe
 
-### Out of scope (de giu nhe)
-- Dang nhap/phan quyen user.
-- Alert push phuc tap voi rule engine.
+### Out of scope (giu project gon)
+- Trading/mua ban vang.
 - Admin panel.
+- He thong phan quyen phuc tap (chi user thuong).
 
 ---
 
-## 3) Kien truc de xuat (rat gon)
-### Frontend
-- Next.js App Router + React.
-- Mot trang chinh hien bang gia, mau tang/giam, timestamp cap nhat.
-
-### Backend trong Next.js
-- Dung Route Handler: `GET /api/gold/latest`
-- Server goi `https://vapi.vnappmob.com/api/v2/gold/{brand}`
-- Header auth: `Authorization: Bearer <api_key>`
-- Chuan hoa du lieu tra ve cho client.
-
-### Polling
-- Client fetch `/api/gold/latest` moi 3000ms.
-- Co retry nhe khi loi mang.
-
-### PWA + Offline
-- Cache app shell (HTML/CSS/JS/icon).
-- Cache response gia moi nhat (Network First + cache fallback).
-- Neu offline: hien thi du lieu cuoi cung + badge "offline".
+## 4) Kien truc ngan gon
+1. Client (Next.js + shadcn + TanStack Query) goi `/api/gold/latest`.
+2. Route Handler trong Next.js goi vapi va tra ve schema da chuan hoa.
+3. Supabase luu:
+   - profile/user settings
+   - alert rules
+   - push subscriptions
+4. Service Worker quan ly cache offline + nhan push.
+5. Job dinh ky (cron) check gia va gui web push neu dat dieu kien alert.
 
 ---
 
-## 4) Can database rieng khong?
-### Quyet dinh MVP: KHONG CAN DB
-Ly do:
-1. Project CV can nhanh, gon, de trinh dien.
-2. Chi can xem gia realtime + offline cache la du.
-3. Preferences co the luu local (`localStorage`/IndexedDB).
-
-### Khi nao moi can DB?
-- Khi can luu alert cua user, push subscription, lich su gia dai han.
-- Neu muon lam phase 2, co the them Postgres/Supabase sau.
-
----
-
-## 5) Next.js co lam duoc ca BE va FE khong?
-### Co, day la lua chon phu hop cho case nay
-- FE: UI, state, polling, render.
-- BE: API proxy trong `app/api/*` de giu an toan `api_key`.
-- Cung deployment 1 noi (Vercel), don gian cho project ca nhan.
+## 5) Data model toi thieu (Supabase)
+1. `profiles`
+   - id (auth user id), display_name, created_at
+2. `alert_rules`
+   - id, user_id, brand, field(buy/sell), condition(gte/lte), threshold, is_active, created_at
+3. `push_subscriptions`
+   - id, user_id, endpoint, p256dh, auth, is_active, created_at
+4. (Tuy chon) `price_snapshots`
+   - id, brand, buy_price, sell_price, fetched_at (de debug/analytics)
 
 ---
 
-## 6) Yeu cau ky thuat toi thieu
-1. Khong expose `api_key` tren client.
-2. Co loading/error/empty state.
-3. Mobile-first: man hinh 360px van dung tot.
-4. PWA install thanh cong tren Android/Chrome.
-5. Offline mo duoc va thay snapshot cuoi.
+## 6) Yeu cau quan trong de show CV
+1. **Bao mat**: API key vapi chi nam o server env, khong lo tren client.
+2. **Performance**:
+   - Lighthouse mobile >= 90
+   - LCP <= 2.5s
+   - INP <= 200ms
+3. **PWA**:
+   - Installable
+   - Offline start_url thanh cong
+   - App shell cache + API fallback cache
+4. **Push**:
+   - User login Google -> subscribe push -> tao alert -> nhan push that.
 
 ---
 
-## 7) KPI de show tren CV
-1. Lighthouse Performance >= 90 (mobile).
-2. PWA checklist dat cac muc co ban (installable, offline start_url).
-3. Time to first data < 2.5s (mang 4G mo phong).
+## 7) Lo trinh 4 buoc (thuc te)
+1. Setup stack (Next.js 16, shadcn, TanStack Query, Supabase Auth Google).
+2. Lam dashboard + API route + polling 3s + responsive UI.
+3. Them PWA/offline (manifest, service worker, cache strategy).
+4. Them alerts + push flow + tune performance + README showcase.
 
 ---
 
-## 8) Ke hoach thuc hien (goi y 3 buoc)
-1. Buoc 1: UI + API proxy + polling 3s.
-2. Buoc 2: PWA manifest + service worker + offline cache.
-3. Buoc 3: Tune performance + them README showcase (anh, diem, tech stack).
+## 8) KPI va Definition of Done
+### KPI de dua vao CV
+- Lighthouse Performance >= 90 (mobile)
+- PWA pass cac muc co ban (install + offline)
+- Login Google + push alert demo thanh cong tren production
 
----
-
-## 9) Definition of Done (MVP)
-- Chay duoc local va deploy production.
-- Gia SJC/DOJI/PNJ cap nhat moi 3s.
-- Co nut/cach install PWA.
-- Offline van hien duoc du lieu lan cuoi.
-- README co link live + screenshot + diem Lighthouse.
+### Done khi:
+- Deploy production on Vercel.
+- Login Google chay on/off duoc.
+- Gia vang cap nhat moi 3s tren dashboard.
+- User tao alert va nhan push khi dat nguong.
+- Offline van xem duoc snapshot cuoi.
+- README co: live URL, screenshot, GIF demo, tech stack, ket qua Lighthouse.
 
