@@ -1,0 +1,9 @@
+.gold-border {
+  border: 2px solid var(--gold-primary);
+}
+.bg-gold {
+  background-color: var(--gold-primary);
+}
+.text-gold {
+  color: var(--gold-primary);
+}
