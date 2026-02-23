@@ -2,6 +2,7 @@
 
 import { GoldPriceChart } from '@/components/GoldPriceChart'
 import { PriceAlertModal } from '@/components/PriceAlertModal'
+import Logo from '@/global/components/logo'
 import { Button } from '@/global/components/ui/button'
 import { cn } from '@/global/lib/utils'
 import {
@@ -22,6 +23,8 @@ import {
   User
 } from 'lucide-react'
 import React from 'react'
+import TickerHeader from '@/features/home/views/TickerHeader'
+import Header from '@/features/home/views/Header'
 
 export default function Home() {
   const [chartTimeRange, setChartTimeRange] = React.useState<'30D' | '90D' | '1Y' | 'ALL'>('30D')
@@ -29,97 +32,9 @@ export default function Home() {
   return (
     <div className='bg-background-light dark:bg-background-dark flex min-h-screen flex-col font-sans text-slate-900 dark:text-slate-100'>
       {/* Ticker Header */}
-      <div className='bg-primary/10 border-primary/20 overflow-hidden border-b py-2'>
-        <div className='mx-auto flex max-w-[1440px] items-center px-6'>
-          <div className='text-primary mr-6 flex shrink-0 items-center gap-2 text-xs font-bold tracking-widest uppercase'>
-            <span className='relative flex h-2 w-2'>
-              <span className='bg-primary absolute inline-flex h-full w-full animate-ping rounded-full opacity-75' />
-              <span className='bg-primary relative inline-flex h-2 w-2 rounded-full' />
-            </span>
-            Live Market
-          </div>
-          <div className='flex gap-12 text-sm font-medium'>
-            <div className='flex items-center gap-4'>
-              <span className='text-slate-400'>SJC Gold:</span>
-              <span className='flex items-center gap-1 text-emerald-500'>
-                82.50M <span className='material-symbols-outlined text-sm'>trending_up</span>
-              </span>
-            </div>
-            <div className='flex items-center gap-4'>
-              <span className='text-slate-400'>PNJ 24K:</span>
-              <span className='flex items-center gap-1 text-rose-500'>
-                74.30M <span className='material-symbols-outlined text-sm'>trending_down</span>
-              </span>
-            </div>
-            <div className='flex items-center gap-4'>
-              <span className='text-slate-400'>DOJI Jewel:</span>
-              <span className='flex items-center gap-1 text-emerald-500'>
-                82.45M <span className='material-symbols-outlined text-sm'>trending_up</span>
-              </span>
-            </div>
-            <div className='flex items-center gap-4'>
-              <span className='text-slate-400'>XAU/USD:</span>
-              <span className='flex items-center gap-1 text-emerald-500'>
-                $2,345.50 <span className='material-symbols-outlined text-sm'>trending_up</span>
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <TickerHeader />
       {/* Header */}
-      <header className='sticky top-0 z-50 border-b border-white/5 bg-[#121212]/85 backdrop-blur-xl'>
-        <div className='mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-4 px-6'>
-          <div className='flex shrink-0 items-center gap-4'>
-            <div className='bg-primary shadow-primary/20 rounded-xl p-2.5 shadow-lg'>
-              <Banknote className='text-background-dark h-6 w-6' strokeWidth={2.5} />
-            </div>
-            <div className='flex flex-col'>
-              <div className='flex items-center gap-1.5'>
-                <span className='text-lg font-black tracking-tighter text-white'>
-                  GOLD<span className='text-primary'>TRACK</span>
-                </span>
-              </div>
-              <div className='flex flex-col'>
-                <span className='mt-0.5 text-[9px] font-bold tracking-[0.2em] text-slate-500 uppercase'>
-                  Vietnam Market
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className='flex shrink-0 items-center gap-6'>
-            <div className='hidden flex-col items-end border-r border-white/10 pr-6 sm:flex'>
-              <span className='text-[10px] font-bold tracking-wider text-slate-500 uppercase'>Cập nhật lúc</span>
-              <p className='text-sm font-bold text-white'>14:30:05 - 24/05/2024</p>
-            </div>
-            <div className='flex items-center gap-3'>
-              <Button
-                variant='ghost'
-                size='icon'
-                className='h-10 w-10 rounded-full border border-transparent text-slate-400 transition-colors hover:border-white/10 hover:bg-white/5 hover:text-white'
-              >
-                <RefreshCw className='h-5 w-5' />
-              </Button>
-              <div className='relative'>
-                <PriceAlertModal
-                  trigger={
-                    <Button
-                      variant='ghost'
-                      size='icon'
-                      className='h-10 w-10 rounded-full border border-transparent text-slate-400 transition-colors hover:border-white/10 hover:bg-white/5 hover:text-white'
-                    >
-                      <Bell className='h-5 w-5' />
-                    </Button>
-                  }
-                />
-                <span className='ring-background-dark absolute top-2 right-2.5 block h-2 w-2 rounded-full bg-rose-500 ring-2'></span>
-              </div>
-              <div className='border-primary/20 bg-primary/10 ml-2 flex h-10 w-10 items-center justify-center rounded-full border'>
-                <User className='text-primary h-5 w-5' />
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
+      <Header />
 
       <main className='mx-auto w-full max-w-[1440px] flex-grow px-6 py-8'>
         {/* Top Grid: Market Overview & Stats */}
