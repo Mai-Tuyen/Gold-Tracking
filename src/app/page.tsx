@@ -548,21 +548,7 @@ export default function Home() {
             </div>
           </div>
           <div className='dark:border-border-dark mt-16 flex flex-col items-center justify-between gap-6 border-t border-slate-200 pt-8 md:flex-row'>
-            <p className='text-xs text-slate-500 dark:text-slate-500'>
-              © 2024 GoldTrack Data Systems. All prices are indicative. Data delayed by 15 mins for free users.
-            </p>
-            <div className='flex items-center gap-6 opacity-60'>
-              <img
-                alt='App Store Download'
-                className='h-8'
-                src='https://lh3.googleusercontent.com/aida-public/AB6AXuDME7AsNcYlSC1niwJuriuKyDLK29BIsD2qh5YRlLCi0NaQqbA6fdO8adyJdRA2ls0WEFJ9k0OgQLj6XBdiGCQ1--zNME_uNWmJ9MIdQWycH611iUfqcDUa4rmyksQbEf2ebryCm5dU-ZnRBxe1dhBdahRO2L4SwNe7tgH7FlsWygh6M6EARRS5LFK1nhawAE_6RxoouhBbCdq_w6uoIj0geHy8is44TJ28xJpCTnXqphjDZl6CHWGIOht4e0Ruu_e23DJapeDtsQ'
-              />
-              <img
-                alt='Play Store Download'
-                className='h-8'
-                src='https://lh3.googleusercontent.com/aida-public/AB6AXuA_8Zt-tgshwOuAKQeTRvoiPzYVXSo7L1cpV14FfPLNl_CJBL9WXZvSgTgsnVSdUX1dpNBD6zSqik6W4BKc7TgjmKxO4Y7YgKAIOjZDMyFNCgfkVujXKslxxv9EZQpL7goCNSmMXrOjOe6xHleSYScQ3qZVsQCJHBaFB0FzmHNsGgzazM6HSVMIV0afdms4tRlw-wjHCtAzWCr9JkNxUq7ODn2aYqe9SAxNrCsakTuLVaqfbWYe-d0xVIBJUofR2U17N0GV_GITpg'
-              />
-            </div>
+            <p className='text-xs text-slate-500 dark:text-slate-500'>© 2026 MaiTuyen. All rights reserved.</p>
           </div>
         </div>
       </footer>
