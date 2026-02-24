@@ -7,7 +7,12 @@ import { useLayoutEffect, useState } from 'react'
 import { User as UserType } from '@supabase/supabase-js'
 import { storage } from '@/global/lib/storage'
 import { createClient } from '@/global/lib/supabase/client'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger
+} from '@/global/components/ui/dropdown-menu'
 import Image from 'next/image'
 import Link from 'next/link'
 export default function Header() {
@@ -34,6 +39,12 @@ export default function Header() {
 
     return () => subscription.unsubscribe()
   }, [supabase])
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut()
+    storage.remove('user')
+    setUser(null)
+  }
 
   return (
     <header className='sticky top-0 z-50 border-b border-white/5 bg-[#121212]/85 backdrop-blur-xl'>
@@ -84,7 +95,7 @@ export default function Header() {
                     </div>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent>
-                    <DropdownMenuItem onClick={() => supabase.auth.signOut()} className='cursor-pointer'>
+                    <DropdownMenuItem onClick={handleSignOut} className='cursor-pointer'>
                       <span className='text-sm font-medium text-red-600 transition-colors hover:text-red-700'>
                         Đăng xuất
                       </span>
