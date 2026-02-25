@@ -1,7 +1,6 @@
-@import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
-@import "./custom.css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -10,28 +9,28 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-manrope);
   --font-display: var(--font-manrope);
-  
+
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
-  
+
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);
-  
+
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  
+
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  
+
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  
+
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  
+
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
-  
+
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
@@ -48,32 +47,32 @@
   /* Default to Dark Mode variables to match "Clone" request */
   --background: #121212;
   --foreground: #f1f5f9; /* slate-100 */
-  
+
   --card: #1e1e1e;
   --card-foreground: #f1f5f9;
-  
+
   --popover: #1e1e1e;
   --popover-foreground: #f1f5f9;
-  
+
   --primary: #f4af25;
   --primary-foreground: #121212;
-  
+
   --secondary: #27272a;
   --secondary-foreground: #f1f5f9;
-  
+
   --muted: #27272a;
   --muted-foreground: #94a3b8; /* slate-400 */
-  
+
   --accent: #27272a;
   --accent-foreground: #f1f5f9;
-  
+
   --destructive: #f43f5e; /* rose-500 */
   --destructive-foreground: #f1f5f9;
-  
+
   --border: #2e2e2e;
   --input: #2e2e2e;
   --ring: #f4af25;
-  
+
   --radius: 0.5rem;
 }
 
@@ -109,7 +108,7 @@
 }
 
 .glass-header {
-  @apply bg-[#121212]/85 backdrop-blur-xl border-b border-white/5;
+  @apply border-b border-white/5 bg-[#121212]/85 backdrop-blur-xl;
 }
 
 .chart-gradient {

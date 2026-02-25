@@ -1,7 +1,8 @@
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono, Inter, Manrope } from 'next/font/google'
 import '@/global/globals.css'
-
+import TanstackqueryProvider from '@/global/lib/providers/TanstackqueryProvider'
+import ErrorBoundaryProvider from '@/global/lib/providers/ErrorBoundary'
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin']
@@ -41,7 +42,9 @@ export default function RootLayout({
           href='https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap'
           rel='stylesheet'
         />
-        {children}
+        <ErrorBoundaryProvider>
+          <TanstackqueryProvider>{children}</TanstackqueryProvider>
+        </ErrorBoundaryProvider>
         {modalLogin}
       </body>
     </html>

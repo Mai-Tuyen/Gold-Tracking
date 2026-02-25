@@ -34,3 +34,14 @@ export function generateSEOMetadata({
     }
   }
 }
+
+export function convertNumberToVND(number: number) {
+  // convert 185300000 to 185.3M
+  const million = number / 1000000
+  const thousand = number / 1000
+  if (number >= 1000000) {
+    return `${million.toFixed(1)}M`
+  } else if (number >= 1000) {
+    return `${thousand.toFixed(1)}K`
+  }
+}
