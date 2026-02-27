@@ -23,11 +23,11 @@ export default function TickerHeader() {
               <span
                 className={cn(
                   'flex items-center gap-1',
-                  goldPrices?.prices?.VNGSJC?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                  goldPrices?.prices?.SJL1L10?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
                 )}
               >
-                {convertNumberToVND(goldPrices?.prices?.VNGSJC?.sell)}{' '}
-                {goldPrices?.prices?.VNGSJC?.change_sell >= 0 ? (
+                {convertNumberToVND(goldPrices?.prices?.SJL1L10?.sell)}{' '}
+                {goldPrices?.prices?.SJL1L10?.change_sell >= 0 ? (
                   <span className='material-symbols-outlined text-sm'>trending_up</span>
                 ) : (
                   <span className='material-symbols-outlined text-sm'>trending_down</span>

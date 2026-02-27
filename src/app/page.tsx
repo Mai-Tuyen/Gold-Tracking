@@ -1,29 +1,15 @@
 'use client'
 
-import { GoldPriceChart } from '@/components/GoldPriceChart'
+import { useHomeStore } from '@/features/home/store'
+import ChartPrice from '@/features/home/views/ChartPrice'
 import Header from '@/features/home/views/Header'
 import TickerHeader from '@/features/home/views/TickerHeader'
 import { Button } from '@/global/components/ui/button'
 import { cn } from '@/global/lib/utils'
-import {
-  ArrowDown,
-  ArrowRight,
-  ArrowUp,
-  ArrowUpDown,
-  Banknote,
-  Globe,
-  Info,
-  Mail,
-  PiggyBank,
-  Rss,
-  Share2,
-  TrendingUp
-} from 'lucide-react'
-import React from 'react'
+import { ArrowDown, ArrowUp, ArrowUpDown, Banknote, Globe, Mail, PiggyBank, Rss, Share2 } from 'lucide-react'
 import Image from 'next/image'
 export default function Home() {
-  const [chartTimeRange, setChartTimeRange] = React.useState<'30D' | '90D' | '1Y' | 'ALL'>('30D')
-
+  const { typeChecked, setTypeChecked } = useHomeStore()
   return (
     <div className='bg-background-light dark:bg-background-dark flex min-h-screen flex-col font-sans text-slate-900 dark:text-slate-100'>
       {/* Ticker Header */}
@@ -34,56 +20,16 @@ export default function Home() {
       <main className='mx-auto w-full max-w-[1440px] flex-grow px-6 py-8'>
         {/* Top Grid: Market Overview & Stats */}
         <div className='mb-12 grid grid-cols-1 gap-8 lg:grid-cols-3'>
-          {/* Market Overview (2 cols) */}
-          <div className='dark:border-border-dark dark:bg-card-dark flex flex-col rounded-xl border border-slate-200 bg-white p-8 lg:col-span-2'>
-            <div className='mb-8 flex flex-wrap items-start justify-between gap-4'>
-              <div>
-                <h1 className='mb-2 text-3xl font-extrabold text-slate-900 dark:text-white'>Market Overview</h1>
-                <p className='flex items-center gap-2 text-slate-500 dark:text-slate-400'>
-                  Global Spot Gold Price (XAU/USD) <span className='font-bold text-emerald-500'>+5.24% this month</span>
-                </p>
-              </div>
-              <div className='dark:bg-background-dark flex rounded-lg bg-slate-100 p-1'>
-                {['30D', '90D', '1Y', 'ALL'].map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setChartTimeRange(tab as any)}
-                    className={cn(
-                      'rounded-md px-4 py-1.5 text-xs font-bold transition-all',
-                      chartTimeRange === tab
-                        ? 'dark:bg-card-dark bg-white shadow-sm dark:text-white'
-                        : 'text-slate-500 hover:text-slate-900 dark:hover:text-slate-300'
-                    )}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className='relative min-h-[300px] flex-grow'>
-              <div className='absolute inset-0 px-2 pt-10'>
-                <GoldPriceChart timeRange={chartTimeRange} className='h-full w-full' />
-              </div>
-              {/* Tooltip Override - Positioning manually to match design */}
-              <div className='border-primary/30 absolute top-[15%] left-[78%] z-10 -translate-x-1/2 rounded-lg border bg-slate-900 p-3 text-xs text-white shadow-xl'>
-                <p className='text-primary mb-1 font-bold'>May 24, 2024</p>
-                <p className='opacity-80'>Price: $2,345.50</p>
-                <p className='font-bold text-emerald-400'>+1.2% Today</p>
-              </div>
-            </div>
-            <div className='dark:border-border-dark mt-6 flex justify-between border-t border-slate-100 pt-4 text-xs font-medium text-slate-400'>
-              <span>MAY 01</span>
-              <span>MAY 08</span>
-              <span>MAY 15</span>
-              <span>MAY 22</span>
-              <span>JUN 01</span>
-            </div>
-          </div>
-
           {/* Right Column Stats */}
-          <div className='flex flex-col gap-10'>
+          <div className='flex flex-col justify-between gap-10'>
             {/* SJC 9999  */}
-            <div className='group bg-primary text-background-dark relative flex h-30 cursor-pointer items-center overflow-hidden rounded-xl p-6 transition-all duration-300 hover:scale-105'>
+            <div
+              onClick={() => setTypeChecked('SJL1L10')}
+              className={cn(
+                typeChecked === 'SJL1L10' ? 'shadow-primary/50 scale-105 shadow-lg' : '',
+                'group bg-primary text-background-dark relative flex h-30 cursor-pointer items-center overflow-hidden rounded-xl p-6 transition-all duration-300 hover:scale-105'
+              )}
+            >
               <div className='relative z-10'>
                 <h3 className='text-4xl font-black'>SJC 9999</h3>
               </div>
@@ -91,7 +37,13 @@ export default function Home() {
             </div>
 
             {/* PNJ Logo */}
-            <div className='group relative flex h-30 cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:scale-105'>
+            <div
+              onClick={() => setTypeChecked('PQHNVM')}
+              className={cn(
+                typeChecked === 'PQHNVM' ? 'shadow-primary/50 scale-105 shadow-lg' : '',
+                'group relative flex h-30 cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:scale-105'
+              )}
+            >
               <Image
                 src='/images/pnj-logo.jpg'
                 alt='PNJ Logo'
@@ -103,7 +55,13 @@ export default function Home() {
             </div>
 
             {/* DOJI Logo */}
-            <div className='group relative flex h-30 cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:scale-105'>
+            <div
+              onClick={() => setTypeChecked('DOHNL')}
+              className={cn(
+                typeChecked === 'DOHNL' ? 'shadow-primary/50 scale-105 shadow-lg' : '',
+                'group relative flex h-30 cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:scale-105'
+              )}
+            >
               <Image
                 src='/images/doji-logo.png'
                 alt='DOJI Logo'
@@ -114,15 +72,13 @@ export default function Home() {
               />
             </div>
           </div>
+          <ChartPrice />
         </div>
 
         {/* Current Gold Rates */}
         <div className='mb-12'>
           <div className='mb-8 flex items-center justify-between'>
             <h2 className='text-2xl font-bold text-slate-900 dark:text-white'>Current Gold Rates</h2>
-            <button className='text-primary flex items-center gap-1 text-sm font-bold hover:underline'>
-              View Full Table <ArrowRight className='h-4 w-4' />
-            </button>
           </div>
           <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
             {/* SJC Card */}
