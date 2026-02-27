@@ -2,10 +2,11 @@
 
 import { useHomeStore } from '@/features/home/store'
 import ChartPrice from '@/features/home/views/ChartPrice'
+import CurrentGoldRates from '@/features/home/views/CurrentGoldRates'
 import Header from '@/features/home/views/Header'
 import TickerHeader from '@/features/home/views/TickerHeader'
 import { Button } from '@/global/components/ui/button'
-import { cn } from '@/global/lib/utils'
+import { cn, formatNumber } from '@/global/lib/utils'
 import { ArrowDown, ArrowUp, ArrowUpDown, Banknote, Globe, Mail, PiggyBank, Rss, Share2 } from 'lucide-react'
 import Image from 'next/image'
 export default function Home() {
@@ -76,119 +77,7 @@ export default function Home() {
         </div>
 
         {/* Current Gold Rates */}
-        <div className='mb-12'>
-          <div className='mb-8 flex items-center justify-between'>
-            <h2 className='text-2xl font-bold text-slate-900 dark:text-white'>Current Gold Rates</h2>
-          </div>
-          <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
-            {/* SJC Card */}
-            <div className='hover:border-primary/50 dark:border-border-dark dark:bg-card-dark cursor-pointer rounded-xl border border-slate-200 bg-white p-6 transition-all'>
-              <div className='mb-6 flex items-start justify-between'>
-                <div className='dark:bg-background-dark rounded bg-slate-100 px-3 py-1 text-[10px] font-black tracking-widest text-slate-500 uppercase'>
-                  SJC BRAND
-                </div>
-                <span className='flex items-center gap-1 text-sm font-bold text-emerald-500'>
-                  +0.8% <ArrowUp className='h-3 w-3' />
-                </span>
-              </div>
-              <h3 className='mb-1 text-sm font-medium text-slate-500 dark:text-slate-400'>Gold SJC (999.9)</h3>
-              <div className='space-y-4'>
-                <div>
-                  <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Buy</p>
-                  <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                    82,500,000 <span className='text-xs font-normal opacity-50'>VND</span>
-                  </p>
-                </div>
-                <div>
-                  <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Sell</p>
-                  <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                    84,500,000 <span className='text-xs font-normal opacity-50'>VND</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* PNJ Card */}
-            <div className='hover:border-primary/50 dark:border-border-dark dark:bg-card-dark cursor-pointer rounded-xl border border-slate-200 bg-white p-6 transition-all'>
-              <div className='mb-6 flex items-start justify-between'>
-                <div className='dark:bg-background-dark rounded bg-slate-100 px-3 py-1 text-[10px] font-black tracking-widest text-slate-500 uppercase'>
-                  PNJ JEWEL
-                </div>
-                <span className='flex items-center gap-1 text-sm font-bold text-rose-500'>
-                  -0.2% <ArrowDown className='h-3 w-3' />
-                </span>
-              </div>
-              <h3 className='mb-1 text-sm font-medium text-slate-500 dark:text-slate-400'>PNJ 24K Gold</h3>
-              <div className='space-y-4'>
-                <div>
-                  <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Buy</p>
-                  <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                    74,300,000 <span className='text-xs font-normal opacity-50'>VND</span>
-                  </p>
-                </div>
-                <div>
-                  <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Sell</p>
-                  <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                    76,100,000 <span className='text-xs font-normal opacity-50'>VND</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* DOJI Card */}
-            <div className='hover:border-primary/50 dark:border-border-dark dark:bg-card-dark cursor-pointer rounded-xl border border-slate-200 bg-white p-6 transition-all'>
-              <div className='mb-6 flex items-start justify-between'>
-                <div className='dark:bg-background-dark rounded bg-slate-100 px-3 py-1 text-[10px] font-black tracking-widest text-slate-500 uppercase'>
-                  DOJI GROUP
-                </div>
-                <span className='flex items-center gap-1 text-sm font-bold text-emerald-500'>
-                  +0.4% <ArrowUp className='h-3 w-3' />
-                </span>
-              </div>
-              <h3 className='mb-1 text-sm font-medium text-slate-500 dark:text-slate-400'>DOJI 9999 Ring</h3>
-              <div className='space-y-4'>
-                <div>
-                  <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Buy</p>
-                  <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                    82,450,000 <span className='text-xs font-normal opacity-50'>VND</span>
-                  </p>
-                </div>
-                <div>
-                  <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Sell</p>
-                  <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                    84,450,000 <span className='text-xs font-normal opacity-50'>VND</span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Global Spot Benchmark Card */}
-            <div className='border-primary bg-primary/5 relative cursor-pointer rounded-xl border-2 p-6'>
-              <div className='bg-primary text-background-dark absolute -top-3 left-6 rounded-full px-3 py-1 text-[10px] font-black uppercase'>
-                Benchmark
-              </div>
-              <div className='mb-6 flex items-start justify-between'>
-                <div className='bg-primary/20 text-primary rounded px-3 py-1 text-[10px] font-black tracking-widest uppercase'>
-                  GLOBAL SPOT
-                </div>
-                <span className='flex items-center gap-1 text-sm font-bold text-emerald-500'>
-                  +1.2% <ArrowUp className='h-3 w-3' />
-                </span>
-              </div>
-              <h3 className='mb-1 text-sm font-medium text-slate-500 dark:text-slate-400'>XAU/USD (Ounce)</h3>
-              <div className='space-y-4'>
-                <div>
-                  <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Current Price</p>
-                  <p className='text-2xl font-black text-slate-900 dark:text-white'>$2,345.50</p>
-                </div>
-                <div className='border-primary/20 border-t pt-2'>
-                  <p className='text-[10px] font-bold text-slate-500 uppercase'>Day High: $2,360.20</p>
-                  <p className='text-[10px] font-bold text-slate-500 uppercase'>Day Low: $2,315.40</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <CurrentGoldRates />
 
         {/* Bottom Grid: Insights & Converter */}
         <div className='grid grid-cols-1 gap-8 md:grid-cols-2'>

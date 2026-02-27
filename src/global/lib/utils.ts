@@ -35,7 +35,8 @@ export function generateSEOMetadata({
   }
 }
 
-export function convertNumberToVND(number: number) {
+export function convertNumberToVND(number?: number) {
+  if (!number) return '0'
   // convert 185300000 to 185.3M
   const million = number / 1000000
   const thousand = number / 1000
@@ -44,4 +45,8 @@ export function convertNumberToVND(number: number) {
   } else if (number >= 1000) {
     return `${thousand.toFixed(1)}K`
   }
+}
+
+export function formatNumberToVND(number?: number, currency: string = 'VND') {
+  return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: currency }).format(number)
 }

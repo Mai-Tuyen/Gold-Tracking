@@ -23,11 +23,11 @@ export default function TickerHeader() {
               <span
                 className={cn(
                   'flex items-center gap-1',
-                  goldPrices?.prices?.SJL1L10?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                  (goldPrices?.prices?.SJL1L10?.change_sell || 0) >= 0 ? 'text-emerald-500' : 'text-rose-500'
                 )}
               >
                 {convertNumberToVND(goldPrices?.prices?.SJL1L10?.sell)}{' '}
-                {goldPrices?.prices?.SJL1L10?.change_sell >= 0 ? (
+                {(goldPrices?.prices?.SJL1L10?.change_sell || 0) >= 0 ? (
                   <span className='material-symbols-outlined text-sm'>trending_up</span>
                 ) : (
                   <span className='material-symbols-outlined text-sm'>trending_down</span>
@@ -43,11 +43,11 @@ export default function TickerHeader() {
               <span
                 className={cn(
                   'flex items-center gap-1',
-                  goldPrices?.prices?.PQHNVM?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                  (goldPrices?.prices?.PQHNVM?.change_sell || 0) >= 0 ? 'text-emerald-500' : 'text-rose-500'
                 )}
               >
                 {convertNumberToVND(goldPrices?.prices?.PQHNVM?.sell)}{' '}
-                {goldPrices?.prices?.PQHNVM?.change_sell >= 0 ? (
+                {(goldPrices?.prices?.PQHNVM?.change_sell || 0) >= 0 ? (
                   <span className='material-symbols-outlined text-sm'>trending_up</span>
                 ) : (
                   <span className='material-symbols-outlined text-sm'>trending_down</span>
@@ -63,11 +63,11 @@ export default function TickerHeader() {
               <span
                 className={cn(
                   'flex items-center gap-1',
-                  goldPrices?.prices?.DOHNL?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                  (goldPrices?.prices?.DOHNL?.change_sell || 0) >= 0 ? 'text-emerald-500' : 'text-rose-500'
                 )}
               >
                 {convertNumberToVND(goldPrices?.prices?.DOHNL?.sell)}{' '}
-                {goldPrices?.prices?.DOHNL?.change_sell >= 0 ? (
+                {(goldPrices?.prices?.DOHNL?.change_sell || 0) >= 0 ? (
                   <span className='material-symbols-outlined text-sm'>trending_up</span>
                 ) : (
                   <span className='material-symbols-outlined text-sm'>trending_down</span>
@@ -83,11 +83,11 @@ export default function TickerHeader() {
               <span
                 className={cn(
                   'flex items-center gap-1',
-                  goldPrices?.prices?.XAUUSD?.change_buy >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                  (goldPrices?.prices?.XAUUSD?.change_buy || 0) >= 0 ? 'text-emerald-500' : 'text-rose-500'
                 )}
               >
                 $ {goldPrices?.prices?.XAUUSD?.buy}{' '}
-                {goldPrices?.prices?.XAUUSD?.change_buy >= 0 ? (
+                {(goldPrices?.prices?.XAUUSD?.change_buy || 0) >= 0 ? (
                   <span className='material-symbols-outlined text-sm'>trending_up</span>
                 ) : (
                   <span className='material-symbols-outlined text-sm'>trending_down</span>

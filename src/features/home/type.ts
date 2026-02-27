@@ -7,9 +7,9 @@ export type GoldPriceHistory = {
 
 type History = {
   date: string
-  prices: Prices
+  prices: HistoryPrices
 }
-type Prices = {
+type HistoryPrices = {
   XAUUSD: PriceHistoryInfo
   DOJINHTV: PriceHistoryInfo
   DOHNL: PriceHistoryInfo
@@ -21,7 +21,6 @@ type Prices = {
   PQHN24NTT: PriceHistoryInfo
   SJ9999: PriceHistoryInfo
   SJL1L10: PriceHistoryInfo
-  SJL1L10: PriceHistoryInfo
 }
 
 type PriceHistoryInfo = {
@@ -31,4 +30,37 @@ type PriceHistoryInfo = {
   day_change_buy: number
   day_change_sell: number
   updates: number
+}
+
+export type GoldPriceCurrent = {
+  success: boolean
+  timestamp: number
+  time: string
+  date: string
+  count: number
+  prices: CurrentPrices
+}
+
+type CurrentPrices = {
+  XAUUSD: CurrentPriceInfo
+  DOJINHTV: CurrentPriceInfo
+  DOHNL: CurrentPriceInfo
+  DOHCML: CurrentPriceInfo
+  BT9999NTT: CurrentPriceInfo
+  BTSJC: CurrentPriceInfo
+  PQHNVM: CurrentPriceInfo
+  VIETTINMSJC: CurrentPriceInfo
+  PQHN24NTT: CurrentPriceInfo
+  SJ9999: CurrentPriceInfo
+  SJL1L10: CurrentPriceInfo
+  VNGSJC: CurrentPriceInfo
+}
+
+type CurrentPriceInfo = {
+  name: string
+  buy: number
+  sell: number
+  change_buy: number
+  change_sell: number
+  currency: string
 }
