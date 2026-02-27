@@ -1,8 +1,8 @@
 'use client'
 
 import { GoldPriceChart } from '@/components/GoldPriceChart'
-import { PriceAlertModal } from '@/components/PriceAlertModal'
-import Logo from '@/global/components/logo'
+import Header from '@/features/home/views/Header'
+import TickerHeader from '@/features/home/views/TickerHeader'
 import { Button } from '@/global/components/ui/button'
 import { cn } from '@/global/lib/utils'
 import {
@@ -11,21 +11,16 @@ import {
   ArrowUp,
   ArrowUpDown,
   Banknote,
-  Bell,
   Globe,
   Info,
   Mail,
   PiggyBank,
-  RefreshCw,
   Rss,
   Share2,
-  TrendingUp,
-  User
+  TrendingUp
 } from 'lucide-react'
 import React from 'react'
-import TickerHeader from '@/features/home/views/TickerHeader'
-import Header from '@/features/home/views/Header'
-
+import Image from 'next/image'
 export default function Home() {
   const [chartTimeRange, setChartTimeRange] = React.useState<'30D' | '90D' | '1Y' | 'ALL'>('30D')
 
@@ -86,54 +81,37 @@ export default function Home() {
           </div>
 
           {/* Right Column Stats */}
-          <div className='flex flex-col gap-6'>
-            {/* Total Assets Tracked */}
-            <div className='group bg-primary text-background-dark relative overflow-hidden rounded-xl p-6'>
+          <div className='flex flex-col gap-10'>
+            {/* SJC 9999  */}
+            <div className='group bg-primary text-background-dark relative flex h-30 cursor-pointer items-center overflow-hidden rounded-xl p-6 transition-all duration-300 hover:scale-105'>
               <div className='relative z-10'>
-                <p className='mb-1 text-sm font-bold tracking-wider uppercase opacity-80'>Total Assets Tracked</p>
-                <h3 className='mb-4 text-4xl font-black'>$142,500.00</h3>
-                <div className='flex items-center gap-2 text-sm font-bold'>
-                  <span className='bg-background-dark/20 flex items-center rounded px-2 py-0.5'>
-                    <TrendingUp className='mr-1 h-3.5 w-3.5' /> +12.4%
-                  </span>
-                  <span className='opacity-80'>vs last month</span>
-                </div>
+                <h3 className='text-4xl font-black'>SJC 9999</h3>
               </div>
-              <PiggyBank className='absolute -right-4 -bottom-4 h-32 w-32 rotate-12 opacity-10 transition-transform duration-500 group-hover:rotate-0' />
+              <PiggyBank className='absolute -right-2 -bottom-4 h-32 w-32 rotate-12 opacity-10 transition-transform duration-500 group-hover:rotate-0' />
             </div>
 
-            {/* Market Sentiment */}
-            <div className='dark:border-border-dark dark:bg-card-dark flex flex-grow flex-col rounded-xl border border-slate-200 bg-white p-6'>
-              <h3 className='mb-4 flex items-center justify-between text-lg font-bold'>
-                Market Sentiment
-                <Info className='h-4 w-4 text-slate-400' />
-              </h3>
-              <div className='space-y-6'>
-                <div>
-                  <div className='mb-2 flex justify-between text-sm'>
-                    <span className='font-medium'>Bullish (Buy)</span>
-                    <span className='font-bold text-emerald-500'>68%</span>
-                  </div>
-                  <div className='dark:bg-background-dark h-2 w-full overflow-hidden rounded-full bg-slate-100'>
-                    <div className='h-full w-[68%] rounded-full bg-emerald-500'></div>
-                  </div>
-                </div>
-                <div>
-                  <div className='mb-2 flex justify-between text-sm'>
-                    <span className='font-medium'>Bearish (Sell)</span>
-                    <span className='font-bold text-rose-500'>32%</span>
-                  </div>
-                  <div className='dark:bg-background-dark h-2 w-full overflow-hidden rounded-full bg-slate-100'>
-                    <div className='h-full w-[32%] rounded-full bg-rose-500'></div>
-                  </div>
-                </div>
-                <div className='dark:border-border-dark dark:bg-background-dark mt-4 rounded-lg border border-slate-100 bg-slate-50 p-4'>
-                  <p className='text-xs leading-relaxed text-slate-500 italic dark:text-slate-400'>
-                    &ldquo;Gold demand remains strong as central banks continue to diversify reserves amid global
-                    economic uncertainty.&rdquo;
-                  </p>
-                </div>
-              </div>
+            {/* PNJ Logo */}
+            <div className='group relative flex h-30 cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:scale-105'>
+              <Image
+                src='/images/pnj-logo.jpg'
+                alt='PNJ Logo'
+                width={120}
+                height={120}
+                quality={100}
+                className='h-full w-full object-cover'
+              />
+            </div>
+
+            {/* DOJI Logo */}
+            <div className='group relative flex h-30 cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-white transition-all duration-300 hover:scale-105'>
+              <Image
+                src='/images/doji-logo.png'
+                alt='DOJI Logo'
+                width={120}
+                height={120}
+                quality={100}
+                className='h-full w-full object-cover'
+              />
             </div>
           </div>
         </div>
