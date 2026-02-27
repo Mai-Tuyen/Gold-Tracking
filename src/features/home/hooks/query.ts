@@ -12,7 +12,6 @@ export const useGoldPricesQuery = () => {
 export const useGoldPricesHistoryQuery = (day: number) => {
   return useQuery({
     queryKey: ['goldPricesHistory', day],
-    queryFn: () => getGoldPricesHistory(day),
-    refetchInterval: 1000 * 5 // 3 seconds
+    queryFn: () => getGoldPricesHistory(day)
   })
 }

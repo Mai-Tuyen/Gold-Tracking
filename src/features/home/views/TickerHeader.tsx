@@ -1,11 +1,9 @@
 import { useGoldPricesHistoryQuery, useGoldPricesQuery } from '@/features/home/hooks/query'
 import { Skeleton } from '@/global/components/ui/skeleton'
-import { convertNumberToVND } from '@/global/lib/utils'
+import { cn, convertNumberToVND } from '@/global/lib/utils'
 
 export default function TickerHeader() {
   const { data: goldPrices, isPending: isLoadingGoldPrices } = useGoldPricesQuery()
-  const { data: goldPricesHistory } = useGoldPricesHistoryQuery(2)
-
   return (
     <div className='bg-primary/10 border-primary/20 overflow-hidden border-b py-2'>
       <div className='mx-auto flex max-w-[1440px] items-center px-6'>
@@ -22,9 +20,18 @@ export default function TickerHeader() {
             {isLoadingGoldPrices ? (
               <Skeleton className='bg-primary/20 h-4 w-18' />
             ) : (
-              <span className='flex items-center gap-1 text-emerald-500'>
+              <span
+                className={cn(
+                  'flex items-center gap-1',
+                  goldPrices?.prices?.VNGSJC?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                )}
+              >
                 {convertNumberToVND(goldPrices?.prices?.VNGSJC?.sell)}{' '}
-                <span className='material-symbols-outlined text-sm'>trending_up</span>
+                {goldPrices?.prices?.VNGSJC?.change_sell >= 0 ? (
+                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                ) : (
+                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                )}
               </span>
             )}
           </div>
@@ -33,9 +40,18 @@ export default function TickerHeader() {
             {isLoadingGoldPrices ? (
               <Skeleton className='bg-primary/20 h-4 w-18' />
             ) : (
-              <span className='flex items-center gap-1 text-rose-500'>
+              <span
+                className={cn(
+                  'flex items-center gap-1',
+                  goldPrices?.prices?.PQHNVM?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                )}
+              >
                 {convertNumberToVND(goldPrices?.prices?.PQHNVM?.sell)}{' '}
-                <span className='material-symbols-outlined text-sm'>trending_down</span>
+                {goldPrices?.prices?.PQHNVM?.change_sell >= 0 ? (
+                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                ) : (
+                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                )}
               </span>
             )}
           </div>
@@ -44,9 +60,18 @@ export default function TickerHeader() {
             {isLoadingGoldPrices ? (
               <Skeleton className='bg-primary/20 h-4 w-18' />
             ) : (
-              <span className='flex items-center gap-1 text-emerald-500'>
+              <span
+                className={cn(
+                  'flex items-center gap-1',
+                  goldPrices?.prices?.DOHNL?.change_sell >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                )}
+              >
                 {convertNumberToVND(goldPrices?.prices?.DOHNL?.sell)}{' '}
-                <span className='material-symbols-outlined text-sm'>trending_up</span>
+                {goldPrices?.prices?.DOHNL?.change_sell >= 0 ? (
+                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                ) : (
+                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                )}
               </span>
             )}
           </div>
@@ -55,9 +80,18 @@ export default function TickerHeader() {
             {isLoadingGoldPrices ? (
               <Skeleton className='bg-primary/20 h-4 w-18' />
             ) : (
-              <span className='flex items-center gap-1 text-emerald-500'>
+              <span
+                className={cn(
+                  'flex items-center gap-1',
+                  goldPrices?.prices?.XAUUSD?.change_buy >= 0 ? 'text-emerald-500' : 'text-rose-500'
+                )}
+              >
                 $ {goldPrices?.prices?.XAUUSD?.buy}{' '}
-                <span className='material-symbols-outlined text-sm'>trending_up</span>
+                {goldPrices?.prices?.XAUUSD?.change_buy >= 0 ? (
+                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                ) : (
+                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                )}
               </span>
             )}
           </div>
