@@ -15,8 +15,8 @@ export default function Footer() {
               </span>
             </div>
             <p className='text-sm leading-relaxed text-slate-500 dark:text-slate-400'>
-              The ultimate financial companion for tracking precious metal markets in Vietnam and globally. Real-time
-              data, professional insights.
+              Người bạn đồng hành tài chính giúp theo dõi thị trường kim loại quý tại Việt Nam và toàn cầu. Dữ liệu thời
+              gian thực, phân tích chuyên sâu.
             </p>
             <div className='flex gap-4'>
               <a
@@ -40,76 +40,76 @@ export default function Footer() {
             </div>
           </div>
           <div>
-            <h4 className='mb-6 text-xs font-bold tracking-widest text-slate-400 uppercase'>Market Data</h4>
+            <h4 className='mb-6 text-xs font-bold tracking-widest text-slate-400 uppercase'>Dữ liệu thị trường</h4>
             <ul className='space-y-4 text-sm font-medium text-slate-500 dark:text-slate-400'>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  SJC Bar Gold
+                  Vàng miếng SJC
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  PNJ Jewelry
+                  Vàng PNJ
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  DOJI Group Rates
+                  Giá DOJI
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Global Spot Price
+                  Giá vàng thế giới
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className='mb-6 text-xs font-bold tracking-widest text-slate-400 uppercase'>Resources</h4>
+            <h4 className='mb-6 text-xs font-bold tracking-widest text-slate-400 uppercase'>Tài nguyên</h4>
             <ul className='space-y-4 text-sm font-medium text-slate-500 dark:text-slate-400'>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Price Calculator
+                  Công cụ tính giá
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Market Analysis
+                  Phân tích thị trường
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Historical Archives
+                  Dữ liệu lịch sử
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Mobile App
+                  Ứng dụng di động
                 </a>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className='mb-6 text-xs font-bold tracking-widest text-slate-400 uppercase'>Legal</h4>
+            <h4 className='mb-6 text-xs font-bold tracking-widest text-slate-400 uppercase'>Pháp lý</h4>
             <ul className='space-y-4 text-sm font-medium text-slate-500 dark:text-slate-400'>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Terms of Service
+                  Điều khoản sử dụng
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Privacy Policy
+                  Chính sách bảo mật
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Data Methodology
+                  Phương pháp dữ liệu
                 </a>
               </li>
               <li>
                 <a href='#' className='hover:text-primary transition-colors'>
-                  Contact Support
+                  Liên hệ hỗ trợ
                 </a>
               </li>
             </ul>
