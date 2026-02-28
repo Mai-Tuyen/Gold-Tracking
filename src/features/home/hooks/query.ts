@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { getGoldPrices, getGoldPricesHistory } from '../api'
+import { getGoldNews, getGoldPrices, getGoldPricesHistory } from '../api'
 
 export const useGoldPricesQuery = () => {
   return useQuery({
@@ -13,5 +13,13 @@ export const useGoldPricesHistoryQuery = (day: number) => {
   return useQuery({
     queryKey: ['goldPricesHistory', day],
     queryFn: () => getGoldPricesHistory(day)
+  })
+}
+
+export const useGoldNewsQuery = () => {
+  return useQuery({
+    queryKey: ['goldNews'],
+    queryFn: getGoldNews,
+    refetchInterval: 1000 * 60 * 5
   })
 }

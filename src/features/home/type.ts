@@ -64,3 +64,10 @@ type CurrentPriceInfo = {
   change_sell: number
   currency: string
 }
+
+export type NewsItem = {
+  title: string
+  link: string
+  source: string
+  publishedAt: string
+}

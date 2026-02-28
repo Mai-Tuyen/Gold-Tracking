@@ -5,11 +5,9 @@ export const middleware = async (request: NextRequest) => {
   const { pathname, searchParams } = request.nextUrl
 
   // Define public routes
-  const publicRoutes = ['/', '/auth/callback', '/auth/login', '/error', '/not-found', '/categories/*']
-  const isCategoryRoute = pathname.startsWith('/categories/')
-
+  const publicRoutes = ['/', '/auth/callback', '/auth/login', '/error', '/not-found', '/api/news']
   // Check if route is public or already has login parameter (to prevent redirect loop)
-  const isPublicRoute = publicRoutes.includes(pathname) || isCategoryRoute
+  const isPublicRoute = publicRoutes.includes(pathname)
 
   // Allow public routes or routes with login parameter without authentication
   if (isPublicRoute) {
@@ -17,20 +15,20 @@ export const middleware = async (request: NextRequest) => {
     return NextResponse.next()
   }
 
-  // For private routes, check authentication
-  const supabase = await createClient()
-  const {
-    data: { session }
-  } = await supabase.auth.getSession()
+  // // For private routes, check authentication
+  // const supabase = await createClient()
+  // const {
+  //   data: { session }
+  // } = await supabase.auth.getSession()
 
-  // If not authenticated, redirect to current URL with login modal trigger
-  if (!session) {
-    console.log('redirecting to login modal')
-    const url = request.nextUrl.clone()
-    url.pathname = '/auth/login'
-    url.searchParams.set('next', request.nextUrl.pathname)
-    return NextResponse.redirect(url)
-  }
+  // // If not authenticated, redirect to current URL with login modal trigger
+  // if (!session) {
+  //   console.log('redirecting to login modal')
+  //   const url = request.nextUrl.clone()
+  //   url.pathname = '/auth/login'
+  //   url.searchParams.set('next', request.nextUrl.pathname)
+  //   return NextResponse.redirect(url)
+  // }
 
   return NextResponse.next()
 }

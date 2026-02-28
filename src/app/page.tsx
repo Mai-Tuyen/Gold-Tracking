@@ -1,16 +1,18 @@
 'use client'
-
 import { useHomeStore } from '@/features/home/store'
 import ChartPrice from '@/features/home/views/ChartPrice'
 import CurrentGoldRates from '@/features/home/views/CurrentGoldRates'
 import Header from '@/features/home/views/Header'
 import TickerHeader from '@/features/home/views/TickerHeader'
+import { useGoldNewsQuery } from '@/features/home/hooks/query'
+import { Skeleton } from '@/global/components/ui/skeleton'
 import { Button } from '@/global/components/ui/button'
-import { cn, formatNumber } from '@/global/lib/utils'
-import { ArrowDown, ArrowUp, ArrowUpDown, Banknote, Globe, Mail, PiggyBank, Rss, Share2 } from 'lucide-react'
+import { cn } from '@/global/lib/utils'
+import { ArrowUpDown, Banknote, Globe, Mail, PiggyBank, Rss, Share2 } from 'lucide-react'
 import Image from 'next/image'
 export default function Home() {
   const { typeChecked, setTypeChecked } = useHomeStore()
+  const { data: goldNews, isPending: isLoadingGoldNews } = useGoldNewsQuery()
   return (
     <div className='bg-background-light dark:bg-background-dark flex min-h-screen flex-col font-sans text-slate-900 dark:text-slate-100'>
       {/* Ticker Header */}
@@ -18,7 +20,7 @@ export default function Home() {
       {/* Header */}
       <Header />
 
-      <main className='mx-auto w-full max-w-[1440px] flex-grow px-6 py-8'>
+      <main className='mx-auto w-full max-w-[1440px] grow px-6 py-8'>
         {/* Top Grid: Market Overview & Stats */}
         <div className='mb-12 grid grid-cols-1 gap-8 lg:grid-cols-3'>
           {/* Right Column Stats */}
@@ -84,41 +86,59 @@ export default function Home() {
           {/* Market Insights */}
           <div className='dark:border-border-dark dark:bg-card-dark overflow-hidden rounded-xl border border-slate-200 bg-white'>
             <div className='dark:border-border-dark flex items-center justify-between border-b border-slate-200 p-6'>
-              <h3 className='font-bold text-slate-900 dark:text-white'>Market Insights</h3>
+              <h3 className='font-bold text-slate-900 dark:text-white'>Tin nổi bật</h3>
               <Rss className='h-5 w-5 text-slate-400' />
             </div>
             <div className='dark:divide-border-dark divide-y divide-slate-100'>
-              <div className='group dark:hover:bg-background-dark cursor-pointer p-6 transition-colors hover:bg-slate-50'>
-                <span className='text-primary mb-1 block text-xs font-bold'>BREAKING</span>
-                <h4 className='group-hover:text-primary font-bold text-slate-900 transition-colors dark:text-white'>
-                  Fed signals potential rate cuts as inflation cools, sparking gold rally
-                </h4>
-                <p className='mt-2 line-clamp-2 text-sm text-slate-500 dark:text-slate-400'>
-                  The Federal Reserve&apos;s latest meeting minutes suggest a shift in policy that could bolster
-                  precious metals...
-                </p>
-                <div className='mt-4 flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase'>
-                  <span>2 HOURS AGO</span>
-                  <span>REUTERS</span>
-                </div>
-              </div>
-              <div className='group dark:hover:bg-background-dark cursor-pointer p-6 transition-colors hover:bg-slate-50'>
-                <h4 className='group-hover:text-primary font-bold text-slate-900 transition-colors dark:text-white'>
-                  Physical gold demand in Vietnam reaches 5-year high amid domestic currency volatility
-                </h4>
-                <p className='mt-2 line-clamp-2 text-sm text-slate-500 dark:text-slate-400'>
-                  Local investors are flocking to SJC bars as the VND continues to experience pressure against the
-                  USD...
-                </p>
-                <div className='mt-4 flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase'>
-                  <span>5 HOURS AGO</span>
-                  <span>BLOOMBERG</span>
-                </div>
-              </div>
+              {isLoadingGoldNews ? (
+                Array.from({ length: 3 }).map((_, index) => (
+                  <div key={index} className='p-6'>
+                    <Skeleton className='mb-2 h-3 w-16' />
+                    <Skeleton className='mb-2 h-5 w-full' />
+                    <Skeleton className='h-5 w-4/5' />
+                    <div className='mt-4 flex items-center gap-4'>
+                      <Skeleton className='h-3 w-24' />
+                      <Skeleton className='h-3 w-28' />
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <>
+                  {goldNews?.length ? (
+                    goldNews.map((article, index) => (
+                      <a
+                        key={article.link}
+                        href={article.link}
+                        target='_blank'
+                        rel='noopener noreferrer'
+                        className='group dark:hover:bg-background-dark block cursor-pointer p-6 transition-colors hover:bg-slate-50'
+                      >
+                        {index === 0 && <span className='text-primary mb-1 block text-xs font-bold'>BREAKING</span>}
+                        <h4 className='group-hover:text-primary font-bold text-slate-900 transition-colors dark:text-white'>
+                          {article.title}
+                        </h4>
+                        <div className='mt-4 flex items-center gap-4 text-[10px] font-bold text-slate-400 uppercase'>
+                          <span>{new Date(article.publishedAt).toLocaleString('vi-VN')}</span>
+                          <span>{article.source}</span>
+                        </div>
+                      </a>
+                    ))
+                  ) : (
+                    <div className='p-6 text-sm text-slate-500'>Chưa có tin mới, vui lòng quay lại sau ít phút.</div>
+                  )}
+                </>
+              )}
             </div>
-            <button className='hover:text-primary w-full py-4 text-sm font-bold text-slate-500 transition-colors'>
-              Read All News
-            </button>
+            {goldNews?.[0]?.link && (
+              <a
+                href={goldNews[0].link}
+                target='_blank'
+                rel='noopener noreferrer'
+                className='hover:text-primary block w-full py-4 text-center text-sm font-bold text-slate-500 transition-colors'
+              >
+                Đọc tin mới nhất
+              </a>
+            )}
           </div>
 
           {/* Price Converter */}
