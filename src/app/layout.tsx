@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter, Manrope } from 'next/font/google'
 import '@/global/globals.css'
 import TanstackqueryProvider from '@/global/lib/providers/TanstackqueryProvider'
 import ErrorBoundaryProvider from '@/global/lib/providers/ErrorBoundary'
+import DevSwCleanup from '@/global/components/pwa/DevSwCleanup'
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin']
@@ -49,6 +50,7 @@ export default function RootLayout({
           rel='stylesheet'
         />
         <ErrorBoundaryProvider>
+          <DevSwCleanup />
           <TanstackqueryProvider>{children}</TanstackqueryProvider>
         </ErrorBoundaryProvider>
         {modalLogin}

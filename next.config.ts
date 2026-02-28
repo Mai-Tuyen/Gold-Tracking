@@ -9,9 +9,11 @@ const nextConfig: NextConfig = {
 }
 
 const withPWA = withPWAInit({
-  dest: 'public',
-  disable: process.env.NODE_ENV === 'development'
+  dest: 'public'
 })
 
 const withNextIntl = createNextIntlPlugin()
-export default withPWA(withNextIntl(nextConfig))
+
+const isProduction = process.env.NODE_ENV === 'production'
+
+export default isProduction ? withPWA(withNextIntl(nextConfig)) : withNextIntl(nextConfig)

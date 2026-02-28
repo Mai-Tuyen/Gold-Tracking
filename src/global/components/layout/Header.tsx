@@ -1,8 +1,7 @@
 'use client'
-import { PriceAlertModal } from '@/components/PriceAlertModal'
 import Logo from '@/global/components/logo'
 import { Button } from '@/global/components/ui/button'
-import { Bell, RefreshCw, User } from 'lucide-react'
+import { Bell, RefreshCw } from 'lucide-react'
 import { useLayoutEffect, useState } from 'react'
 import { User as UserType } from '@supabase/supabase-js'
 import { storage } from '@/global/lib/storage'
@@ -15,6 +14,7 @@ import {
 } from '@/global/components/ui/dropdown-menu'
 import Image from 'next/image'
 import Link from 'next/link'
+import ListPriceAlertModal from '@/features/home/views/ListPriceAlertModal'
 export default function Header() {
   const [user, setUser] = useState<UserType | null>(null)
   const supabase = createClient()
@@ -47,7 +47,7 @@ export default function Header() {
   }
 
   return (
-    <header className='sticky top-0 z-50 border-b border-white/5 bg-[#121212]/85 backdrop-blur-xl'>
+    <header className='bg-background-dark/85 sticky top-0 z-50 border-b border-white/5 backdrop-blur-xl'>
       <div className='mx-auto flex h-20 max-w-[1440px] items-center justify-between gap-4 px-6'>
         <Logo />
         <div className='flex shrink-0 items-center gap-6'>
@@ -64,7 +64,7 @@ export default function Header() {
               <RefreshCw className='h-5 w-5' />
             </Button>
             <div className='relative'>
-              <PriceAlertModal
+              <ListPriceAlertModal
                 trigger={
                   <Button
                     variant='ghost'
