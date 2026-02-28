@@ -3,13 +3,13 @@ import { useGoldNewsQuery } from '@/features/home/hooks/query'
 import { useHomeStore } from '@/features/home/store'
 import ChartPrice from '@/features/home/views/ChartPrice'
 import CurrentGoldRates from '@/features/home/views/CurrentGoldRates'
+import PriceConverter from '@/features/home/views/PriceConverter'
 import TickerHeader from '@/features/home/views/TickerHeader'
 import Footer from '@/global/components/layout/Footer'
 import Header from '@/global/components/layout/Header'
-import { Button } from '@/global/components/ui/button'
 import { Skeleton } from '@/global/components/ui/skeleton'
 import { cn } from '@/global/lib/utils'
-import { ArrowUpDown, PiggyBank, Rss } from 'lucide-react'
+import { PiggyBank, Rss } from 'lucide-react'
 import Image from 'next/image'
 export default function Home() {
   const { typeChecked, setTypeChecked } = useHomeStore()
@@ -143,52 +143,7 @@ export default function Home() {
           </div>
 
           {/* Price Converter */}
-          <div className='dark:border-border-dark dark:bg-card-dark rounded-xl border border-slate-200 bg-white p-8'>
-            <h3 className='mb-6 font-bold text-slate-900 dark:text-white'>Price Converter</h3>
-            <div className='space-y-6'>
-              <div>
-                <label className='mb-2 block text-xs font-bold text-slate-400 uppercase'>Amount (Tael/Lượng)</label>
-                <div className='relative'>
-                  <input
-                    className='focus:ring-primary dark:bg-background-dark w-full rounded-lg border-none bg-slate-100 p-4 text-xl font-bold text-slate-900 dark:text-white'
-                    type='number'
-                    defaultValue='1.00'
-                  />
-                  <span className='absolute top-1/2 right-4 -translate-y-1/2 font-bold text-slate-400'>GOLD</span>
-                </div>
-              </div>
-              <div className='flex justify-center'>
-                <div className='bg-primary rounded-full p-2'>
-                  <ArrowUpDown className='text-background-dark h-5 w-5' />
-                </div>
-              </div>
-              <div>
-                <label className='mb-2 block text-xs font-bold text-slate-400 uppercase'>Estimated Value (VND)</label>
-                <div className='relative'>
-                  <input
-                    className='text-primary dark:bg-background-dark w-full rounded-lg border-none bg-slate-100 p-4 text-xl font-bold'
-                    readOnly
-                    type='text'
-                    defaultValue='82,500,000'
-                  />
-                  <span className='absolute top-1/2 right-4 -translate-y-1/2 font-bold text-slate-400'>VND</span>
-                </div>
-              </div>
-              <div className='space-y-3 pt-4'>
-                <div className='flex justify-between text-sm'>
-                  <span className='text-slate-500'>Processing Fee (0.5%)</span>
-                  <span className='font-medium text-slate-900 dark:text-white'>412,500 VND</span>
-                </div>
-                <div className='dark:border-border-dark flex justify-between border-t border-slate-100 pt-3 text-lg font-bold'>
-                  <span className='text-slate-900 dark:text-white'>Total Estimated</span>
-                  <span className='text-primary'>82,912,500 VND</span>
-                </div>
-              </div>
-              <Button className='dark:bg-primary dark:text-background-dark h-auto w-full rounded-xl bg-slate-900 py-4 font-bold text-white transition-opacity hover:opacity-90'>
-                Download Quote
-              </Button>
-            </div>
-          </div>
+          <PriceConverter />
         </div>
       </main>
 
