@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono, Inter, Manrope } from 'next/font/google'
 import '@/global/globals.css'
 import TanstackqueryProvider from '@/global/lib/providers/TanstackqueryProvider'
@@ -25,7 +25,13 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: 'GoldTrack | Dashboard Giá Vàng Vietnam',
-  description: 'Vàng lên là vui'
+  description: 'Vàng lên là vui',
+  applicationName: 'Gold Tracking',
+  manifest: '/manifest.webmanifest'
+}
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff'
 }
 
 export default function RootLayout({
