@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { Bell, Plus, Trash2 } from 'lucide-react'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import AddPriceAlertModal from '@/features/home/views/AddPriceAlertModal'
 import { useMediaQuery } from '@/global/hooks/use-media-query'
@@ -47,6 +47,7 @@ type AlertRule = {
 }
 
 export default function ListPriceAlertModal({ trigger }: { trigger?: React.ReactNode }) {
+  const pathname = usePathname()
   const [isOpen, setIsOpen] = React.useState(false)
   const [isAddOpen, setIsAddOpen] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(true)
@@ -184,7 +185,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
           <Button
             type='button'
             variant='outline'
-            onClick={() => router.push(`/auth/login?next=${encodeURIComponent(window.location.pathname)}`)}
+            onClick={() => router.push(`/auth/login?next=${encodeURIComponent(pathname ?? '/')}`)}
           >
             Đăng nhập ngay
           </Button>
@@ -281,10 +282,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Hủy</AlertDialogCancel>
-            <AlertDialogAction
-              variant='destructive'
-              onClick={() => ruleToDelete && handleDeleteRule(ruleToDelete)}
-            >
+            <AlertDialogAction variant='destructive' onClick={() => ruleToDelete && handleDeleteRule(ruleToDelete)}>
               Xóa
             </AlertDialogAction>
           </AlertDialogFooter>

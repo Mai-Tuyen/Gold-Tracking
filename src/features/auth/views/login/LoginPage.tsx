@@ -1,7 +1,7 @@
 'use client'
 import { Button } from '@/global/components/ui/button'
 import { createClient } from '@/global/lib/supabase/client'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'react-toastify'
@@ -9,6 +9,7 @@ import Logo from '@/global/components/logo'
 
 export function LoginPage() {
   const searchParams = useSearchParams()
+  const pathname = usePathname()
   const nextUrl = searchParams.get('next')
   const [isLoading, setIsLoading] = useState(false)
   const supabase = createClient()
@@ -19,7 +20,7 @@ export function LoginPage() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=${nextUrl}`,
+          redirectTo: `${encodeURIComponent(pathname ?? '/')}/auth/callback?next=${nextUrl}`,
           scopes: 'https://www.googleapis.com/auth/userinfo.email'
         }
       })

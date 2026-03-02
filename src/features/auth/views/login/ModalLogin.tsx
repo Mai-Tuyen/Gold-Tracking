@@ -7,11 +7,12 @@ import Image from 'next/image'
 import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'react-toastify'
 import { createClient } from '@/global/lib/supabase/client'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 import Logo from '@/global/components/logo'
 
 export function LoginModal() {
   const searchParams = useSearchParams()
+  const pathname = usePathname()
   const nextUrl = searchParams.get('next')
   const [open, setOpen] = useState(true)
   const [isLoading, setIsLoading] = useState(false)
@@ -23,7 +24,7 @@ export function LoginModal() {
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
-          redirectTo: `${window.location.origin}/auth/callback?next=${nextUrl}`,
+          redirectTo: `${encodeURIComponent(pathname ?? '/')}/auth/callback?next=${nextUrl}`,
           scopes: 'https://www.googleapis.com/auth/userinfo.email'
         }
       })

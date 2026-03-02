@@ -1,22 +1,39 @@
 {
-  "name": "Gold Tracker VN",
-  "short_name": "Gold Tracker VN",
+  "id": "/",
+  "name": "GoldTrack | Dashboard Giá Vàng Vietnam",
+  "short_name": "GoldTrack",
+  "description": "Vàng lên là vui - Theo dõi giá vàng Việt Nam",
   "icons": [
     {
-      "src": "/icon-192x192.png",
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/icon-512x512.png",
+      "src": "/icons/icon-512x512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/icons/icon-512x512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
-  "theme_color": "#FFFFFF",
-  "background_color": "#FFFFFF",
+  "theme_color": "#1a1a1a",
+  "background_color": "#0a0a0a",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "categories": ["finance", "utilities"]
 }

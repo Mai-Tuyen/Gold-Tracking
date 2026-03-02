@@ -30,6 +30,8 @@ const APP_TITLE_TEMPLATE = '%s - GoldTrack'
 const APP_DESCRIPTION = 'Vàng lên là vui'
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000'),
+  manifest: '/manifest.json',
   applicationName: APP_NAME,
   title: {
     default: APP_DEFAULT_TITLE,
@@ -65,7 +67,9 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#FFFFFF'
+  themeColor: '#1a1a1a',
+  width: 'device-width',
+  initialScale: 1
 }
 
 export default function RootLayout({

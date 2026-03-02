@@ -9,7 +9,7 @@ import { Label } from '@/global/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/global/components/ui/select'
 import { Tabs, TabsList, TabsTrigger } from '@/global/components/ui/tabs'
 import { createClient } from '@/global/lib/supabase/client'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 
 type AddPriceAlertModalProps = {
@@ -71,6 +71,7 @@ function AlertForm({
 }) {
   const supabase = React.useMemo(() => createClient(), [])
   const router = useRouter()
+  const pathname = usePathname()
   const [brand, setBrand] = React.useState('sjc')
   const [priceField, setPriceField] = React.useState<'buy' | 'sell'>('sell')
   const [type, setType] = React.useState<'higher' | 'lower'>('higher')
@@ -119,7 +120,7 @@ function AlertForm({
 
       if (!user) {
         toast.info('Vui lòng đăng nhập để lưu cảnh báo giá.')
-        router.push(`/auth/login?next=${encodeURIComponent(window.location.pathname)}`)
+        router.push(`/auth/login?next=${encodeURIComponent(pathname ?? '/')}`)
         return
       }
 
@@ -145,6 +146,10 @@ function AlertForm({
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const handlePriceInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrice(formatVndInput((e.target as unknown as { value: string }).value))
   }
 
   return (
@@ -213,7 +218,7 @@ function AlertForm({
             type='text'
             placeholder='Ví dụ: 85.000.000'
             value={price}
-            onChange={(e) => setPrice(formatVndInput(e.target.value))}
+            onChange={handlePriceInputChange}
             className='focus-visible:ring-gold/20 focus-visible:border-gold border-border bg-muted/50 text-foreground placeholder:text-muted-foreground h-12 rounded-xl pl-4 text-base'
           />
           <p className='text-muted-foreground text-[13px]'>

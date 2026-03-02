@@ -58,7 +58,7 @@ export default function PriceConverter() {
               className='focus:ring-primary dark:bg-background-dark w-full rounded-lg border-none bg-slate-100 p-4 text-xl font-bold text-slate-900 dark:text-white'
               type='number'
               defaultValue={amount}
-              onChange={(e) => setAmount(Number(e.target.value))}
+              onChange={(e) => setAmount(Number((e.target as unknown as { value: string }).value))}
             />
             <span className='absolute top-1/2 right-4 -translate-y-1/2 font-bold text-slate-400'>Lượng</span>
           </div>
