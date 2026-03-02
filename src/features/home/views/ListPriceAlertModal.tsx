@@ -52,6 +52,9 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
   const [isAddOpen, setIsAddOpen] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(true)
   const [isAuthenticated, setIsAuthenticated] = React.useState(false)
+  const [isPushSupported, setIsPushSupported] = React.useState(true)
+  const [isPushEnabled, setIsPushEnabled] = React.useState(false)
+  const [isPushLoading, setIsPushLoading] = React.useState(false)
   const [rules, setRules] = React.useState<AlertRule[]>([])
   const [mutatingRuleId, setMutatingRuleId] = React.useState<string | null>(null)
   const [ruleToDelete, setRuleToDelete] = React.useState<AlertRule | null>(null)
@@ -86,6 +89,83 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
   }
 
   const formatVnd = (value: number) => new Intl.NumberFormat('vi-VN').format(Number(value))
+
+  const urlBase64ToUint8Array = (base64String: string) => {
+    const padding = '='.repeat((4 - (base64String.length % 4)) % 4)
+    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/')
+    const rawData = window.atob(base64)
+    return Uint8Array.from(rawData, (char) => char.charCodeAt(0))
+  }
+
+  const syncSubscriptionToServer = React.useCallback(
+    async (subscription: PushSubscription) => {
+      const subscriptionJson = subscription.toJSON()
+      const endpoint = subscription.endpoint
+      const p256dh = subscriptionJson.keys?.p256dh
+      const auth = subscriptionJson.keys?.auth
+
+      if (!endpoint || !p256dh || !auth) {
+        throw new Error('Không đọc được dữ liệu subscription hợp lệ.')
+      }
+
+      const {
+        data: { session }
+      } = await supabase.auth.getSession()
+
+      if (!session?.access_token) {
+        throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')
+      }
+
+      const response = await fetch('/api/push/subscriptions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({
+          endpoint,
+          keys: { p256dh, auth }
+        }),
+        credentials: 'include'
+      })
+
+      if (!response.ok) {
+        const result = (await response.json().catch(() => null)) as { error?: string } | null
+        throw new Error(result?.error ?? 'Không thể đồng bộ đăng ký thông báo.')
+      }
+    },
+    [supabase]
+  )
+
+  const checkPushStatus = React.useCallback(async () => {
+    if (typeof window === 'undefined') return
+
+    if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+      setIsPushSupported(false)
+      setIsPushEnabled(false)
+      return
+    }
+
+    setIsPushSupported(true)
+
+    if (Notification.permission === 'denied') {
+      setIsPushEnabled(false)
+      return
+    }
+
+    const registration = await navigator.serviceWorker.ready
+    const subscription = await registration.pushManager.getSubscription()
+    setIsPushEnabled(Boolean(subscription))
+
+    // Auto-heal: browser da subscribe nhung DB chua co ban ghi.
+    if (subscription) {
+      try {
+        await syncSubscriptionToServer(subscription)
+      } catch {
+        // Khong fail UI state, user van thay status local.
+      }
+    }
+  }, [syncSubscriptionToServer])
 
   const loadRules = React.useCallback(async () => {
     setIsLoading(true)
@@ -125,6 +205,109 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
     if (!isOpen) return
     loadRules()
   }, [isOpen, loadRules])
+
+  React.useEffect(() => {
+    if (!isOpen || !isAuthenticated) return
+    checkPushStatus().catch(() => {
+      setIsPushSupported(false)
+      setIsPushEnabled(false)
+    })
+  }, [isOpen, isAuthenticated, checkPushStatus])
+
+  const handleEnablePush = async () => {
+    setIsPushLoading(true)
+    try {
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        setIsPushSupported(false)
+        throw new Error('Trình duyệt không hỗ trợ Push Notification.')
+      }
+
+      let permission = Notification.permission
+      if (permission === 'default') {
+        permission = await Notification.requestPermission()
+      }
+
+      if (permission !== 'granted') {
+        throw new Error('Bạn chưa cấp quyền nhận thông báo.')
+      }
+
+      const vapidPublicKey = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+      if (!vapidPublicKey) {
+        throw new Error('Thiếu NEXT_PUBLIC_VAPID_PUBLIC_KEY.')
+      }
+
+      const registration = await navigator.serviceWorker.ready
+      let subscription = await registration.pushManager.getSubscription()
+      if (!subscription) {
+        subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(vapidPublicKey)
+        })
+      }
+
+      await syncSubscriptionToServer(subscription)
+
+      setIsPushEnabled(true)
+      toast.success('Đã bật thông báo đẩy.')
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, 'Không thể bật thông báo đẩy.'))
+      await checkPushStatus()
+    } finally {
+      setIsPushLoading(false)
+    }
+  }
+
+  const handleDisablePush = async () => {
+    setIsPushLoading(true)
+    try {
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        setIsPushSupported(false)
+        setIsPushEnabled(false)
+        return
+      }
+
+      const registration = await navigator.serviceWorker.ready
+      const subscription = await registration.pushManager.getSubscription()
+
+      if (!subscription) {
+        setIsPushEnabled(false)
+        toast.info('Thiết bị chưa đăng ký thông báo đẩy.')
+        return
+      }
+
+      const endpoint = subscription.endpoint
+      const {
+        data: { session }
+      } = await supabase.auth.getSession()
+      if (!session?.access_token) {
+        throw new Error('Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.')
+      }
+
+      const response = await fetch('/api/push/subscriptions', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`
+        },
+        body: JSON.stringify({ endpoint }),
+        credentials: 'include'
+      })
+
+      if (!response.ok) {
+        const result = (await response.json().catch(() => null)) as { error?: string } | null
+        throw new Error(result?.error ?? 'Không thể tắt đăng ký thông báo trên server.')
+      }
+
+      await subscription.unsubscribe()
+      setIsPushEnabled(false)
+      toast.success('Đã tắt thông báo đẩy.')
+    } catch (error: unknown) {
+      toast.error(getErrorMessage(error, 'Không thể tắt thông báo đẩy.'))
+      await checkPushStatus()
+    } finally {
+      setIsPushLoading(false)
+    }
+  }
 
   const handleToggleRule = async (rule: AlertRule) => {
     setMutatingRuleId(rule.id)
@@ -188,6 +371,29 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
             onClick={() => router.push(`/auth/login?next=${encodeURIComponent(pathname ?? '/')}`)}
           >
             Đăng nhập ngay
+          </Button>
+        </div>
+      ) : null}
+
+      {!isLoading && isAuthenticated ? (
+        <div className='border-border bg-background-dark/50 flex items-center justify-between rounded-xl border p-3'>
+          <div>
+            <p className='text-sm font-semibold text-white'>Thông báo đẩy trên thiết bị</p>
+            <p className='text-xs text-slate-400'>
+              {isPushSupported
+                ? isPushEnabled
+                  ? 'Đang bật cho trình duyệt hiện tại.'
+                  : 'Đang tắt cho trình duyệt hiện tại.'
+                : 'Trình duyệt hiện tại không hỗ trợ push.'}
+            </p>
+          </div>
+          <Button
+            type='button'
+            variant={isPushEnabled ? 'outline' : 'default'}
+            disabled={isPushLoading || !isPushSupported}
+            onClick={isPushEnabled ? handleDisablePush : handleEnablePush}
+          >
+            {isPushLoading ? 'Đang xử lý...' : isPushEnabled ? 'Tắt Notification' : 'Bật Notification'}
           </Button>
         </div>
       ) : null}

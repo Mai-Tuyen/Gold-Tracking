@@ -36,3 +36,58 @@ const serwist = new Serwist({
 })
 
 serwist.addEventListeners()
+
+type PushPayload = {
+  title?: string
+  body?: string
+  icon?: string
+  badge?: string
+  data?: {
+    url?: string
+  }
+}
+
+self.addEventListener('push', (event) => {
+  const payload = (() => {
+    try {
+      return (event.data?.json() as PushPayload | undefined) ?? {}
+    } catch {
+      return {}
+    }
+  })()
+
+  const title = payload.title ?? 'Gold Tracker - Thông báo giá vàng'
+  const body = payload.body ?? 'Giá vàng đã chạm ngưỡng cài đặt'
+  const icon = payload.icon ?? '/icons/icon-192x192.png'
+  const badge = payload.badge ?? '/icons/icon-192x192.png'
+  const url = payload.data?.url ?? '/'
+
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body,
+      icon,
+      badge,
+      data: { url }
+    })
+  )
+})
+
+self.addEventListener('notificationclick', (event) => {
+  event.notification.close()
+  const targetUrl = (event.notification.data?.url as string | undefined) ?? '/'
+
+  event.waitUntil(
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
+      for (const client of windowClients) {
+        if ('focus' in client) {
+          client.navigate(targetUrl)
+          return client.focus()
+        }
+      }
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(targetUrl)
+      }
+      return undefined
+    })
+  )
+})

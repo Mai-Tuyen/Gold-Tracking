@@ -53,7 +53,6 @@ export default function Home() {
                 alt='PNJ Logo'
                 width={120}
                 height={120}
-                quality={100}
                 className='h-full w-full object-cover'
               />
             </div>
@@ -71,7 +70,6 @@ export default function Home() {
                 alt='DOJI Logo'
                 width={120}
                 height={120}
-                quality={100}
                 className='h-full w-full object-cover'
               />
             </div>
