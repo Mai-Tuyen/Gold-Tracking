@@ -52,7 +52,7 @@ export default function PriceConverter() {
       </div>
       <div className='space-y-6'>
         <div>
-          <label className='mb-2 block text-xs font-bold text-slate-400 uppercase'>Lượng</label>
+          <label className='mb-2 block text-xs font-bold text-slate-400 uppercase'>Lượng</label>
           <div className='relative'>
             <input
               className='focus:ring-primary dark:bg-background-dark w-full rounded-lg border-none bg-slate-100 p-4 text-xl font-bold text-slate-900 dark:text-white'
@@ -60,7 +60,7 @@ export default function PriceConverter() {
               defaultValue={amount}
               onChange={(e) => setAmount(Number((e.target as unknown as { value: string }).value))}
             />
-            <span className='absolute top-1/2 right-4 -translate-y-1/2 font-bold text-slate-400'>Lượng</span>
+            <span className='absolute top-1/2 right-4 -translate-y-1/2 font-bold text-slate-400'>Lượng</span>
           </div>
         </div>
         <div className='flex justify-center'>

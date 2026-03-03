@@ -44,7 +44,7 @@ export function LineChart({ days, className }: GoldPriceChartProps) {
       labels,
       datasets: [
         {
-          label: 'Mua vào',
+          label: 'Mua vào',
           data: buyPrices,
           borderColor: '#22c55e',
           backgroundColor: 'rgba(34, 197, 94, 0.12)',
@@ -58,7 +58,7 @@ export function LineChart({ days, className }: GoldPriceChartProps) {
           fill: false
         },
         {
-          label: 'Bán ra',
+          label: 'Bán ra',
           data: sellPrices,
           borderColor: '#ef4444',
           backgroundColor: 'rgba(239, 68, 68, 0.12)',

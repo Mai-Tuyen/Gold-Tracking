@@ -27,7 +27,7 @@ export default function CurrentGoldRates() {
     return (
       <div className='mb-12'>
         <div className='mb-8 flex items-center justify-between'>
-          <h2 className='text-2xl font-bold text-slate-900 dark:text-white'>Giá hiện tại</h2>
+          <h2 className='text-2xl font-bold text-slate-900 dark:text-white'>Giá hiện tại</h2>
         </div>
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
           {Array.from({ length: 4 }).map((_, index) => (
@@ -60,7 +60,7 @@ export default function CurrentGoldRates() {
   return (
     <div className='mb-12'>
       <div className='mb-8 flex items-center justify-between'>
-        <h2 className='text-2xl font-bold text-slate-900 dark:text-white'>Giá hiện tại</h2>
+        <h2 className='text-2xl font-bold text-slate-900 dark:text-white'>Giá hiện tại</h2>
       </div>
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
         {/* SJC Card */}
@@ -80,7 +80,7 @@ export default function CurrentGoldRates() {
               </p>
             </div>
             <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
+              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
               <p className='text-2xl font-black text-slate-900 dark:text-white'>
                 {formatNumberToVND(goldPrices?.prices?.SJL1L10?.sell ?? 0)}{' '}
               </p>
@@ -105,7 +105,7 @@ export default function CurrentGoldRates() {
               </p>
             </div>
             <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
+              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
               <p className='text-2xl font-black text-slate-900 dark:text-white'>
                 {formatNumberToVND(goldPrices?.prices?.PQHNVM?.sell ?? 0)}{' '}
               </p>
@@ -130,7 +130,7 @@ export default function CurrentGoldRates() {
               </p>
             </div>
             <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
+              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
               <p className='text-2xl font-black text-slate-900 dark:text-white'>
                 {formatNumberToVND(goldPrices?.prices?.DOHNL?.sell ?? 0)}{' '}
               </p>
@@ -144,7 +144,7 @@ export default function CurrentGoldRates() {
           </div>
           <div className='mb-6 flex items-start justify-between'>
             <div className='bg-primary/20 text-primary mb-4 rounded px-3 py-1 text-[10px] font-black tracking-widest uppercase'>
-              Vàng Thế giới
+              Vàng Thế giới
             </div>
             {renderChange(goldPrices?.prices?.XAUUSD?.buy, goldPrices?.prices?.XAUUSD?.change_buy)}
           </div>

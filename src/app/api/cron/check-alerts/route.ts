@@ -159,8 +159,8 @@ export async function GET(request: Request) {
       if (userSubscriptions.length === 0) continue
 
       const payload = JSON.stringify({
-        title: 'Gold Tracker - Thông báo giá vàng',
-        body: `${rule.brand.toUpperCase()} ${rule.price_field === 'buy' ? 'mua vào' : 'bán ra'} đã chạm ngưỡng ${formatNumberToVND(rule.target_price)}`,
+        title: 'Gold Tracker - Thông báo giá vàng',
+        body: `${rule.brand.toUpperCase()} ${rule.price_field === 'buy' ? 'mua vào' : 'bán ra'} đã chạm ngưỡng ${formatNumberToVND(rule.target_price)}`,
         data: { url: '/' }
       })
 

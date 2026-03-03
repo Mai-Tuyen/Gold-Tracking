@@ -4,7 +4,7 @@ import { Button } from '@/global/components/ui/button'
 
 export const metadata = {
   title: 'Offline | GoldTrack',
-  description: 'Mất kết nối internet.'
+  description: 'Mất kết nối internet.'
 }
 
 export default function OfflinePage() {
@@ -15,13 +15,13 @@ export default function OfflinePage() {
           <WifiOff className='text-gold h-7 w-7' />
         </div>
 
-        <h1 className='font-manrope text-foreground mb-2 text-2xl font-bold'>Bạn đang offline</h1>
+        <h1 className='font-manrope text-foreground mb-2 text-2xl font-bold'>Bạn đang offline</h1>
 
         <div className='flex flex-col gap-3 sm:flex-row'>
           <Button asChild className='bg-gold hover:bg-gold/90 text-black sm:flex-1'>
             <Link href='/'>
               <RefreshCw className='h-4 w-4' />
-              Thử lại
+              Thử lại
             </Link>
           </Button>
         </div>

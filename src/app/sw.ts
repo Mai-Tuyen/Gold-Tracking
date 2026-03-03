@@ -64,8 +64,8 @@ self.addEventListener('push', (event) => {
     }
   })()
 
-  const title = payload.title ?? 'Gold Tracker - Thông báo giá vàng'
-  const body = payload.body ?? 'Giá vàng đã chạm ngưỡng cài đặt'
+  const title = payload.title ?? 'Gold Tracker - Thông báo giá vàng'
+  const body = payload.body ?? 'Giá vàng đã chạm ngưỡng cài đặt'
   const icon = payload.icon ?? '/icons/icon-192x192.png'
   const badge = payload.badge ?? '/icons/icon-192x192.png'
   const url = payload.data?.url ?? '/'

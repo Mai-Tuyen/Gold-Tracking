@@ -19,7 +19,7 @@ export default function ChartPrice() {
         <div>
           <h1 className='dark:text-primary mb-2 text-3xl font-extrabold text-slate-900'>{labelTypeChecked}</h1>
           <p className='flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400'>
-            Lịch sử giá trong {chartTimeRange} ngày qua
+            Lịch sử giá trong {chartTimeRange} ngày qua
           </p>
         </div>
         <div className='dark:bg-background-dark flex rounded-lg bg-slate-100 p-1'>

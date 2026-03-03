@@ -54,12 +54,12 @@ export function LoginPage() {
             {isLoading ? (
               <div className='flex items-center gap-2'>
                 <div className='h-4 w-4 animate-spin rounded-full border-2 border-slate-300 border-t-slate-600 sm:h-5 sm:w-5' />
-                <span>Đăng nhập...</span>
+                <span>Đăng nhập...</span>
               </div>
             ) : (
               <div className='flex items-center gap-2 sm:gap-3'>
                 <FcGoogle className='h-4 w-4 sm:h-5 sm:w-5' />
-                <span>Đăng nhập với Google</span>
+                <span>Đăng nhập với Google</span>
               </div>
             )}
           </Button>
@@ -69,7 +69,7 @@ export function LoginPage() {
               <div className='w-full border-t border-slate-200' />
             </div>
             <div className='relative flex justify-center text-xs uppercase'>
-              <span className='dark:bg-background-dark bg-white/80 px-2 py-1 text-slate-500'>Xác thực an toàn</span>
+              <span className='dark:bg-background-dark bg-white/80 px-2 py-1 text-slate-500'>Xác thực an toàn</span>
             </div>
           </div>
 

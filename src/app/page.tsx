@@ -85,7 +85,7 @@ export default function Home() {
           {/* Market Insights */}
           <div className='dark:border-border-dark dark:bg-card-dark overflow-hidden rounded-xl border border-slate-200 bg-white'>
             <div className='dark:border-border-dark flex items-center justify-between border-b border-slate-200 p-6'>
-              <h3 className='font-bold text-slate-900 dark:text-white'>Tin nổi bật</h3>
+              <h3 className='font-bold text-slate-900 dark:text-white'>Tin nổi bật</h3>
               <Rss className='h-5 w-5 text-slate-400' />
             </div>
             <div className='dark:divide-border-dark divide-y divide-slate-100'>
@@ -123,7 +123,7 @@ export default function Home() {
                       </a>
                     ))
                   ) : (
-                    <div className='p-6 text-sm text-slate-500'>Chưa có tin mới, vui lòng quay lại sau ít phút.</div>
+                    <div className='p-6 text-sm text-slate-500'>Chưa có tin mới, vui lòng quay lại sau ít phút.</div>
                   )}
                 </>
               )}
@@ -135,7 +135,7 @@ export default function Home() {
                 rel='noopener noreferrer'
                 className='hover:text-primary block w-full py-4 text-center text-sm font-bold text-slate-500 transition-colors'
               >
-                Đọc tin mới nhất
+                Đọc tin mới nhất
               </a>
             )}
           </div>

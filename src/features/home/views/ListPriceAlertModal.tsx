@@ -389,7 +389,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
             disabled={isPushLoading || !isPushSupported}
             onClick={isPushEnabled ? handleDisablePush : handleEnablePush}
           >
-            {isPushLoading ? 'Đang xử lý...' : isPushEnabled ? 'Tắt thông báo' : 'Bật thông báo'}
+            {isPushLoading ? 'Đang xử lý...' : isPushEnabled ? 'Tắt thông báo' : 'Bật thông báo'}
           </Button>
         </div>
       ) : null}

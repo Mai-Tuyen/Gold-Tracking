@@ -62,7 +62,7 @@ export async function GET() {
       {
         items: [],
         success: false,
-        error: 'Lỗi khi tải tin nổi bật',
+        error: 'Lỗi khi tải tin nổi bật',
         detail: process.env.NODE_ENV === 'development' ? String(error) : undefined
       },
       { status: 200 }
