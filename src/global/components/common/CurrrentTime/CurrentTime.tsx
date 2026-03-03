@@ -11,5 +11,5 @@ export default function CurrentTime() {
     return () => clearInterval(interval)
   }, [])
 
-  return <div className='w-[155px] text-xs font-bold text-white'>{dayjs().format('DD/MM/YYYY - HH:MM:ss')}</div>
+  return <div className='w-[155px] text-xs font-bold text-white'>{currentTime}</div>
 }
