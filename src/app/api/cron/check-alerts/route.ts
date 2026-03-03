@@ -81,12 +81,9 @@ export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get('authorization')
     const isVercelCronRequest = request.headers.get('x-vercel-cron') === '1'
-    const searchParams = new URL(request.url).searchParams
-    const secretFromQuery = searchParams.get('secret')
     const cronSecret = process.env.CRON_SECRET
 
-    const isAuthorizedBySecret =
-      Boolean(cronSecret) && (authHeader === `Bearer ${cronSecret}` || secretFromQuery === cronSecret)
+    const isAuthorizedBySecret = Boolean(cronSecret) && authHeader === `Bearer ${cronSecret}`
 
     if (!isVercelCronRequest && !isAuthorizedBySecret) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -163,7 +160,7 @@ export async function GET(request: Request) {
 
       const payload = JSON.stringify({
         title: 'Gold Tracker - Thông báo giá vàng',
-        body: `${rule.brand.toUpperCase()} ${rule.price_field === 'buy' ? 'mua vao' : 'ban ra'} da cham nguong ${formatNumberToVND(rule.target_price)} VND.`,
+        body: `${rule.brand.toUpperCase()} ${rule.price_field === 'buy' ? 'mua vào' : 'bán ra'} đã chạm ngưỡng ${formatNumberToVND(rule.target_price)}`,
         data: { url: '/' }
       })
 

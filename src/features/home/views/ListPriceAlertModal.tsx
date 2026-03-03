@@ -380,11 +380,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
           <div>
             <p className='text-sm font-semibold text-white'>Thông báo đẩy trên thiết bị</p>
             <p className='text-xs text-slate-400'>
-              {isPushSupported
-                ? isPushEnabled
-                  ? 'Đang bật cho trình duyệt hiện tại.'
-                  : 'Đang tắt cho trình duyệt hiện tại.'
-                : 'Trình duyệt hiện tại không hỗ trợ push.'}
+              {isPushSupported ? (isPushEnabled ? 'Đang bật' : 'Đang tắt') : 'Trình duyệt hiện tại không hỗ trợ push.'}
             </p>
           </div>
           <Button
@@ -393,7 +389,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
             disabled={isPushLoading || !isPushSupported}
             onClick={isPushEnabled ? handleDisablePush : handleEnablePush}
           >
-            {isPushLoading ? 'Đang xử lý...' : isPushEnabled ? 'Tắt Notification' : 'Bật Notification'}
+            {isPushLoading ? 'Đang xử lý...' : isPushEnabled ? 'Tắt thông báo' : 'Bật thông báo'}
           </Button>
         </div>
       ) : null}

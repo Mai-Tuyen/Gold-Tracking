@@ -101,23 +101,17 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const body = (await request.json()) as { endpoint?: string }
+    const body = (await request.json().catch(() => ({}))) as { endpoint?: string }
     const endpoint = body.endpoint?.trim()
-    if (!endpoint) {
-      return NextResponse.json({ error: 'Missing endpoint' }, { status: 400 })
-    }
 
-    const { error: updateError } = await admin
-      .from('push_subscriptions')
-      .update({ is_active: false })
-      .eq('user_id', userId)
-      .eq('endpoint', endpoint)
+    const deactivateQuery = admin.from('push_subscriptions').update({ is_active: false }).eq('user_id', userId)
+    const { error: updateError } = endpoint ? await deactivateQuery.eq('endpoint', endpoint) : await deactivateQuery
 
     if (updateError) {
       return NextResponse.json({ error: updateError.message }, { status: 400 })
     }
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ ok: true, endpoint: endpoint ?? null })
   } catch {
     return NextResponse.json({ error: 'Unexpected error' }, { status: 500 })
   }
