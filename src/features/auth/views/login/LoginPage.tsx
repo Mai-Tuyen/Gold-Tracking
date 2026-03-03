@@ -5,7 +5,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'react-toastify'
-import Logo from '@/global/components/logo'
+import Logo from '@/global/components/common/logo'
 
 export function LoginPage() {
   const searchParams = useSearchParams()

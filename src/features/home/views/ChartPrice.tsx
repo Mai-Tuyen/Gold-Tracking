@@ -2,9 +2,17 @@ import { LineChart } from '@/features/home/views/LineChart'
 import { useHomeStore } from '@/features/home/store'
 import { cn } from '@/global/lib/utils'
 import React from 'react'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/global/components/ui/select'
 export default function ChartPrice() {
   const [chartTimeRange, setChartTimeRange] = React.useState<number>(7)
-  const { typeChecked } = useHomeStore()
+  const { typeChecked, setTypeChecked } = useHomeStore()
 
   const labelTypeChecked = React.useMemo(() => {
     if (typeChecked === 'SJL1L10') return 'SJC 9999'
@@ -17,7 +25,32 @@ export default function ChartPrice() {
     <div className='dark:border-border-dark dark:bg-card-dark flex flex-col rounded-xl border border-slate-200 bg-white p-8 lg:col-span-2'>
       <div className='mb-8 flex flex-wrap items-start justify-between gap-4'>
         <div>
-          <h1 className='dark:text-primary mb-2 text-3xl font-extrabold text-slate-900'>{labelTypeChecked}</h1>
+          <h1 className='dark:text-primary mb-2 hidden text-3xl font-extrabold text-slate-900 lg:block'>
+            {labelTypeChecked}
+          </h1>
+          <div className='mb-2 lg:hidden'>
+            <Select
+              defaultValue={typeChecked}
+              onValueChange={(value) => setTypeChecked(value as 'SJL1L10' | 'PQHNVM' | 'DOHNL')}
+            >
+              <SelectTrigger className='text-primary w-full max-w-48 font-bold'>
+                <SelectValue placeholder='Chọn thương hiệu' />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value='SJL1L10' className='text-primary'>
+                    SJC 9999
+                  </SelectItem>
+                  <SelectItem value='PQHNVM' className='text-primary'>
+                    PNJ
+                  </SelectItem>
+                  <SelectItem value='DOHNL' className='text-primary'>
+                    DOJI
+                  </SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
           <p className='flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400'>
             Lịch sử giá trong {chartTimeRange} ngày qua
           </p>

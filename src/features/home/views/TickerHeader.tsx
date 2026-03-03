@@ -5,7 +5,7 @@ import { cn, convertNumberToVND } from '@/global/lib/utils'
 export default function TickerHeader() {
   const { data: goldPrices, isPending: isLoadingGoldPrices } = useGoldPricesQuery()
   return (
-    <div className='bg-primary/10 border-primary/20 overflow-hidden border-b py-2'>
+    <div className='bg-primary/10 border-primary/20 hidden overflow-hidden border-b py-2 md:block'>
       <div className='mx-auto flex max-w-[1440px] items-center px-6'>
         <div className='text-primary mr-6 flex shrink-0 items-center gap-2 text-xs font-bold tracking-widest uppercase'>
           <span className='relative flex h-2 w-2'>
@@ -14,7 +14,7 @@ export default function TickerHeader() {
           </span>
           Live Market
         </div>
-        <div className='flex gap-12 text-sm font-medium'>
+        <div className='flex gap-4 text-xs font-medium md:gap-8 lg:gap-12'>
           <div className='flex items-center gap-4'>
             <span className='text-slate-400'>SJC:</span>
             {isLoadingGoldPrices ? (

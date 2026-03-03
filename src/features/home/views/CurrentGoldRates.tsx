@@ -1,3 +1,4 @@
+import PriceCard from '@/features/home/components/PriceCard'
 import { useGoldPricesQuery } from '@/features/home/hooks/query'
 import { Skeleton } from '@/global/components/ui/skeleton'
 import { cn, formatNumberToVND } from '@/global/lib/utils'
@@ -64,79 +65,31 @@ export default function CurrentGoldRates() {
       </div>
       <div className='grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4'>
         {/* SJC Card */}
-        <div className='hover:border-primary/50 dark:border-border-dark dark:bg-card-dark rounded-xl border border-slate-200 bg-white p-6 transition-all'>
-          <div className='mb-6 flex items-start justify-between'>
-            <div className='dark:bg-background-dark rounded bg-slate-100 px-3 py-1 text-[10px] font-black tracking-widest text-slate-500 uppercase'>
-              SJC
-            </div>
-            {renderChange(goldPrices?.prices?.SJL1L10?.sell, goldPrices?.prices?.SJL1L10?.change_sell)}
-          </div>
-          <h3 className='mb-1 text-sm font-medium text-slate-500 dark:text-slate-400'>SJC 9999</h3>
-          <div className='space-y-4'>
-            <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Mua</p>
-              <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                {formatNumberToVND(goldPrices?.prices?.SJL1L10?.buy ?? 0)}{' '}
-              </p>
-            </div>
-            <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
-              <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                {formatNumberToVND(goldPrices?.prices?.SJL1L10?.sell ?? 0)}{' '}
-              </p>
-            </div>
-          </div>
-        </div>
+        <PriceCard
+          brand='SJC'
+          buy={goldPrices?.prices?.SJL1L10?.buy ?? 0}
+          sell={goldPrices?.prices?.SJL1L10?.sell ?? 0}
+          changeSell={goldPrices?.prices?.SJL1L10?.change_sell ?? 0}
+          label='SJC 9999'
+        />
 
         {/* PNJ Card */}
-        <div className='hover:border-primary/50 dark:border-border-dark dark:bg-card-dark rounded-xl border border-slate-200 bg-white p-6 transition-all'>
-          <div className='mb-6 flex items-start justify-between'>
-            <div className='dark:bg-background-dark rounded bg-slate-100 px-3 py-1 text-[10px] font-black tracking-widest text-slate-500 uppercase'>
-              PNJ JEWEL
-            </div>
-            {renderChange(goldPrices?.prices?.PQHNVM?.sell, goldPrices?.prices?.PQHNVM?.change_sell)}
-          </div>
-          <h3 className='mb-1 text-sm font-medium text-slate-500 dark:text-slate-400'>PNJ 24K Gold</h3>
-          <div className='space-y-4'>
-            <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Mua</p>
-              <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                {formatNumberToVND(goldPrices?.prices?.PQHNVM?.buy ?? 0)}{' '}
-              </p>
-            </div>
-            <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
-              <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                {formatNumberToVND(goldPrices?.prices?.PQHNVM?.sell ?? 0)}{' '}
-              </p>
-            </div>
-          </div>
-        </div>
+        <PriceCard
+          brand='PNJ'
+          buy={goldPrices?.prices?.PQHNVM?.buy ?? 0}
+          sell={goldPrices?.prices?.PQHNVM?.sell ?? 0}
+          changeSell={goldPrices?.prices?.PQHNVM?.change_sell ?? 0}
+          label='PNJ 24K Gold'
+        />
 
         {/* DOJI Card */}
-        <div className='hover:border-primary/50 dark:border-border-dark dark:bg-card-dark rounded-xl border border-slate-200 bg-white p-6 transition-all'>
-          <div className='mb-6 flex items-start justify-between'>
-            <div className='dark:bg-background-dark rounded bg-slate-100 px-3 py-1 text-[10px] font-black tracking-widest text-slate-500 uppercase'>
-              DOJI GROUP
-            </div>
-            {renderChange(goldPrices?.prices?.DOHNL?.sell, goldPrices?.prices?.DOHNL?.change_sell)}
-          </div>
-          <h3 className='mb-1 text-sm font-medium text-slate-500 dark:text-slate-400'>DOJI 9999 Ring</h3>
-          <div className='space-y-4'>
-            <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Mua</p>
-              <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                {formatNumberToVND(goldPrices?.prices?.DOHNL?.buy ?? 0)}{' '}
-              </p>
-            </div>
-            <div>
-              <p className='text-xs font-bold tracking-tighter text-slate-400 uppercase'>Bán</p>
-              <p className='text-2xl font-black text-slate-900 dark:text-white'>
-                {formatNumberToVND(goldPrices?.prices?.DOHNL?.sell ?? 0)}{' '}
-              </p>
-            </div>
-          </div>
-        </div>
+        <PriceCard
+          brand='DOJI'
+          buy={goldPrices?.prices?.DOHNL?.buy ?? 0}
+          sell={goldPrices?.prices?.DOHNL?.sell ?? 0}
+          changeSell={goldPrices?.prices?.DOHNL?.change_sell ?? 0}
+          label='DOJI 9999 Ring'
+        />
 
         <div className='border-primary bg-primary/5 relative rounded-xl border-2 p-6'>
           <div className='bg-primary text-background-dark absolute -top-3 left-6 rounded-full px-3 py-1 text-[10px] font-black uppercase'>

@@ -7,14 +7,7 @@ import { z } from 'zod'
 import { useMediaQuery } from '@/global/hooks/use-media-query'
 import { Button } from '@/global/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/global/components/ui/dialog'
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage
-} from '@/global/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/global/components/ui/form'
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/global/components/ui/drawer'
 import { Input } from '@/global/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/global/components/ui/select'
@@ -59,7 +52,7 @@ export function AddPriceAlertModal({ open, onOpenChange, onCreated }: AddPriceAl
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className='bg-card border-border text-foreground gap-0 overflow-hidden rounded-[20px] p-0 sm:max-w-[480px]'>
+        <DialogContent className='bg-card border-border text-foreground gap-0 overflow-hidden rounded-[20px] p-0 sm:max-w-[640px]'>
           <DialogHeader className='border-border border-b px-6 py-5'>
             <DialogTitle className='font-manrope text-foreground text-[20px] font-bold'>
               Cài đặt thông báo giá
@@ -201,11 +194,7 @@ function AlertForm({
               <FormItem>
                 <FormLabel className='text-foreground text-sm font-semibold'>Loại thông báo</FormLabel>
                 <FormControl>
-                  <Tabs
-                    value={field.value}
-                    onValueChange={field.onChange}
-                    className='w-full'
-                  >
+                  <Tabs value={field.value} onValueChange={field.onChange} className='w-full'>
                     <TabsList className='bg-muted grid h-12 w-full grid-cols-2 rounded-xl p-1'>
                       <TabsTrigger
                         value='higher'

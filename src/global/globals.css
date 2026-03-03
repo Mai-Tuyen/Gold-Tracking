@@ -107,6 +107,12 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 12px;
+  }
+}
+
 .glass-header {
   @apply border-b border-white/5 bg-[#121212]/85 backdrop-blur-xl;
 }

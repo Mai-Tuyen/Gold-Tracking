@@ -355,7 +355,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
         <Button
           type='button'
           onClick={() => setIsAddOpen(true)}
-          className='bg-gold hover:bg-gold/90 h-9 rounded-lg px-3 text-black'
+          className='bg-gold hover:bg-gold/90 h-9 cursor-pointer rounded-lg px-3 text-black'
         >
           <Plus className='mr-1 h-4 w-4' />
           Thêm
@@ -368,6 +368,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
           <Button
             type='button'
             variant='outline'
+            className='cursor-pointer'
             onClick={() => router.push(`/auth/login?next=${encodeURIComponent(pathname ?? '/')}`)}
           >
             Đăng nhập ngay
@@ -388,6 +389,7 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
             variant={isPushEnabled ? 'outline' : 'default'}
             disabled={isPushLoading || !isPushSupported}
             onClick={isPushEnabled ? handleDisablePush : handleEnablePush}
+            className='cursor-pointer'
           >
             {isPushLoading ? 'Đang xử lý...' : isPushEnabled ? 'Tắt thông báo' : 'Bật thông báo'}
           </Button>
@@ -420,12 +422,13 @@ export default function ListPriceAlertModal({ trigger }: { trigger?: React.React
                   checked={rule.is_active}
                   onCheckedChange={() => handleToggleRule(rule)}
                   disabled={mutatingRuleId === rule.id}
+                  className='cursor-pointer'
                 />
                 <Button
                   type='button'
                   size='icon'
                   variant='ghost'
-                  className='h-8 w-8 text-rose-400 hover:text-rose-300'
+                  className='h-8 w-8 cursor-pointer text-rose-400 hover:text-rose-300'
                   disabled={mutatingRuleId === rule.id}
                   onClick={() => setRuleToDelete(rule)}
                 >

@@ -25,7 +25,7 @@ export default function Home() {
         {/* Top Grid: Market Overview & Stats */}
         <div className='mb-12 grid grid-cols-1 gap-8 lg:grid-cols-3'>
           {/* Right Column Stats */}
-          <div className='flex flex-col justify-between gap-10'>
+          <div className='hidden justify-between gap-10 lg:flex lg:flex-col'>
             {/* SJC 9999  */}
             <div
               onClick={() => setTypeChecked('SJL1L10')}

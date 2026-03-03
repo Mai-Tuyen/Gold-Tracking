@@ -8,7 +8,7 @@ import { FcGoogle } from 'react-icons/fc'
 import { toast } from 'react-toastify'
 import { createClient } from '@/global/lib/supabase/client'
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import Logo from '@/global/components/logo'
+import Logo from '@/global/components/common/logo'
 
 export function LoginModal() {
   const searchParams = useSearchParams()
