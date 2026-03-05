@@ -80,12 +80,11 @@ const isRuleMatched = (currentValue: number, operator: AlertRule['operator'], ta
 export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get('authorization')
-    const isVercelCronRequest = request.headers.get('x-vercel-cron') === '1'
     const cronSecret = process.env.CRON_SECRET
 
     const isAuthorizedBySecret = Boolean(cronSecret) && authHeader === `Bearer ${cronSecret}`
 
-    if (!isVercelCronRequest && !isAuthorizedBySecret) {
+    if (!isAuthorizedBySecret) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 

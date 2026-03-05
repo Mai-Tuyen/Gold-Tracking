@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cron:check-once": "node scripts/run-check-alerts-once.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
