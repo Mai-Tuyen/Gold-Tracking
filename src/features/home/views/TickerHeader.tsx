@@ -1,6 +1,7 @@
-import { useGoldPricesHistoryQuery, useGoldPricesQuery } from '@/features/home/hooks/query'
+import { useGoldPricesQuery } from '@/features/home/hooks/query'
 import { Skeleton } from '@/global/components/ui/skeleton'
 import { cn, convertNumberToVND } from '@/global/lib/utils'
+import { TrendingDown, TrendingUp } from 'lucide-react'
 
 export default function TickerHeader() {
   const { data: goldPrices, isPending: isLoadingGoldPrices } = useGoldPricesQuery()
@@ -28,9 +29,9 @@ export default function TickerHeader() {
               >
                 {convertNumberToVND(goldPrices?.prices?.SJL1L10?.sell)}{' '}
                 {(goldPrices?.prices?.SJL1L10?.change_sell || 0) >= 0 ? (
-                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                  <TrendingUp className='h-4 w-4' />
                 ) : (
-                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                  <TrendingDown className='h-4 w-4' />
                 )}
               </span>
             )}
@@ -48,9 +49,9 @@ export default function TickerHeader() {
               >
                 {convertNumberToVND(goldPrices?.prices?.PQHNVM?.sell)}{' '}
                 {(goldPrices?.prices?.PQHNVM?.change_sell || 0) >= 0 ? (
-                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                  <TrendingUp className='h-4 w-4' />
                 ) : (
-                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                  <TrendingDown className='h-4 w-4' />
                 )}
               </span>
             )}
@@ -68,9 +69,9 @@ export default function TickerHeader() {
               >
                 {convertNumberToVND(goldPrices?.prices?.DOHNL?.sell)}{' '}
                 {(goldPrices?.prices?.DOHNL?.change_sell || 0) >= 0 ? (
-                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                  <TrendingUp className='h-4 w-4' />
                 ) : (
-                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                  <TrendingDown className='h-4 w-4' />
                 )}
               </span>
             )}
@@ -88,9 +89,9 @@ export default function TickerHeader() {
               >
                 $ {goldPrices?.prices?.XAUUSD?.buy}{' '}
                 {(goldPrices?.prices?.XAUUSD?.change_buy || 0) >= 0 ? (
-                  <span className='material-symbols-outlined text-sm'>trending_up</span>
+                  <TrendingUp className='h-4 w-4' />
                 ) : (
-                  <span className='material-symbols-outlined text-sm'>trending_down</span>
+                  <TrendingDown className='h-4 w-4' />
                 )}
               </span>
             )}
